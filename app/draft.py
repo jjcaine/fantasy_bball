@@ -1,8 +1,11 @@
 import os
+import logging
 
 import pandas as pd
 
 from app.exceptions import DraftPickleException
+
+log = logging.getLogger(__name__)
 
 teams = 16
 team_budget = 269
@@ -11,7 +14,21 @@ roster_size = 14
 starters = 10
 total_players = teams * roster_size
 
-teams = ['Caine', 'Trivett', 'Deye']
+league_teams = ['ALyons',
+                'Baird',
+                'Beesley',
+                'Caine',
+                'Daza',
+                'Deye',
+                'Duncan',
+                'Dzialo',
+                'Jacobs',
+                'Nunes',
+                'Raterman',
+                'SLyons',
+                'Sanderson',
+                'Skrzydlak',
+                'Trivett']
 
 scoring_categories = ['adjfg%', 'ft%', '3/g', '3%', 'or/g', 'dr/g', 'a/g', 's/g', 'b/g', 'to/g', 'p/g']
 display_columns = ['calculated_value', 'g', 'm/g'] + scoring_categories
@@ -60,14 +77,14 @@ def compute_value(df, replacement_approach='median'):
     df_value = df.join(value.to_frame(), on="Rank").rename(columns={0: "calculated_value"}).sort_values(by=['calculated_value'], ascending=False)
 
     # the old index is now arbitrary, so Names will be our new index
-    df_value = df_value.set_index('Name', drop=False).loc[:, display_columns]
+    df_value = df_value.set_index('Name', drop=True).loc[:, display_columns]
 
     # rank players by value. Order will be important later when we look at the top 'x' players by this ranking
-    df_value['Rank'] = df_value['calculated_value'].rank(ascending=False)
+    df_value['rank'] = df_value['calculated_value'].rank(ascending=False)
 
     # get the total output of the league, ie the value sum of all the top x players in our league, where x is
     # the number of players per roster multiplied by the number of teams
-    total_league_value_output = float(df_value.loc[(df_value['Rank'] <= total_players), ['calculated_value']].sum())
+    total_league_value_output = float(df_value.loc[(df_value['rank'] <= total_players), ['calculated_value']].sum())
 
     # ratio of dollars per value point. this allows us to project how much each player is "worth"
     dollar_per_value_point = league_dollars_total / total_league_value_output
@@ -76,16 +93,19 @@ def compute_value(df, replacement_approach='median'):
     df_value['calculated_$'] = dollar_per_value_point * df_value['calculated_value']
 
     # return the df_value with the columns we care about for later on
-    final_columns = ['calculated_value', 'calculated_$', 'g', 'm/g'] + scoring_categories
+    final_columns = ['calculated_value', 'calculated_$', 'g', 'm/g'] + scoring_categories + ['rank']
     return df_value.loc[:, final_columns]
 
 
 def initialize_draft(df):
     """All this does is take in a df and add the 'owned' and 'sold_$' columns"""
 
-    df.insert(2, 'owned', 'Avail')
-    df.insert(3, 'sold_$', 0)
-    return df.loc[:]
+    df.insert(2, 'sold_$', 0)
+    df.insert(3, 'owned', 'Avail')
+
+    df.insert(4, 'new_$', df['calculated_$'])
+    df.insert(5, 'bargain_$', df['calculated_$'] - df['new_$'])
+    return df
 
 
 def transaction(df, player, team, dollar_amount):
@@ -93,22 +113,37 @@ def transaction(df, player, team, dollar_amount):
     Takes in a dataframe, updates the player with who bought them and for what dollar amount, returns the
     updated dataframe.
     """
-    df.at[player, 'owned'] = team
-    df.at[player, 'sold_$'] = dollar_amount
-    return df
+    print(f'Player: {player}, Team: {team}, Dollar Amount: {dollar_amount}')
+    df_updated = df.copy()
+    df_updated.at[player, 'owned'] = team
+    df_updated.at[player, 'sold_$'] = dollar_amount
+    return df_updated
 
 
 def calculate_updated_values(df):
-    total_remaining_value = float(df.loc[(df['Rank'] <= total_players) & (df['Owned'] == 'Avail'), 'calculated_value'].sum())
+    total_remaining_value = float(df.loc[(df['rank'] <= total_players) & (df['owned'] == 'Avail'), 'calculated_value'].sum())
     new_dollar_per_value_point = (league_dollars_total - float(df['sold_$'].sum())) / total_remaining_value
     df['new_$'] = new_dollar_per_value_point * df['calculated_value']
     df['bargain_diff'] = df['calculated_$'] - df['new_$']
     return df
 
 
-def get_indicies(df):
-    return list(df.index)
+def calculate_current_team_values(df, teams):
+    """Returns a dictionary with all teams and their total value"""
+    team_values = {}
+    for t in teams:
+        value = float(df.loc[(df['owned'] == t), ['calculated_value']].sum())
+        team_values[t] = value
 
+    return team_values
+
+
+def calculate_team_spending(df, teams):
+    """Returns a dictionary with all teams spending"""
+    team_spending = {}
+    for t in teams:
+        dollars_spent = int(df.loc[(df['owned'] == t), ['sold_$']].sum())
+        team_spending[t] = dollars_spent
 
 
 def get_pickled_df(path):
