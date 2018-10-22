@@ -8,12 +8,12 @@ from app.exceptions import DraftPickleException, NoTransactionFileExists
 
 log = logging.getLogger(__name__)
 
-teams = 16
+num_teams = 16
 team_budget = 269
-league_dollars_total = teams * team_budget
+league_dollars_total = num_teams * team_budget
 roster_size = 14
 starters = 10
-total_players = teams * roster_size
+total_players = num_teams * roster_size
 
 league_teams = ['ALyons',
                 'Baird',
@@ -114,7 +114,6 @@ def transaction(df, player, team, dollar_amount, write_to_log=True, transaction_
     Takes in a dataframe, updates the player with who bought them and for what dollar amount, returns the
     updated dataframe. Optionally calls log_transaction to log to the transaction file.
     """
-    print(f'Player: {player}, Team: {team}, Dollar Amount: {dollar_amount}')
     if write_to_log:
         log_transaction(transaction_file_path, player, team, dollar_amount)
     df_updated = df.copy()
@@ -141,7 +140,7 @@ def calculate_updated_values(df):
     total_remaining_value = float(df.loc[(df['rank'] <= total_players) & (df['owned'] == 'Avail'), 'calculated_value'].sum())
     new_dollar_per_value_point = (league_dollars_total - float(df['sold_$'].sum())) / total_remaining_value
     df['new_$'] = new_dollar_per_value_point * df['calculated_value']
-    df['bargain_diff'] = df['calculated_$'] - df['new_$']
+    df['bargain_$'] = df['calculated_$'] - df['new_$']
     return df
 
 
@@ -152,15 +151,19 @@ def calculate_current_team_values(df, teams):
         value = float(df.loc[(df['owned'] == t), ['calculated_value']].sum())
         team_values[t] = value
 
+    print(team_values)
     return team_values
 
 
 def calculate_team_spending(df, teams):
     """Returns a dictionary with all teams spending"""
     team_spending = {}
+    amount_remaining = {}
     for t in teams:
         dollars_spent = int(df.loc[(df['owned'] == t), ['sold_$']].sum())
         team_spending[t] = dollars_spent
+        amount_remaining[t] = team_budget - dollars_spent
+    return team_spending, amount_remaining
 
 
 def replay_tranactions(df, transactions_file_path='transactions.json'):

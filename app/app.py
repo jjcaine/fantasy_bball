@@ -7,7 +7,7 @@ from flask import Flask, render_template, request, flash, redirect, url_for
 from flask.logging import default_handler
 
 from app.draft import get_data, compute_value, get_pickled_df, initialize_draft, league_teams, transaction, \
-    calculate_updated_values, replay_tranactions
+    calculate_updated_values, replay_tranactions, calculate_current_team_values, calculate_team_spending
 from app.exceptions import DraftPickleException, DraftNotInitializedException, NoTransactionFileExists
 
 root = logging.getLogger()
@@ -42,13 +42,18 @@ def main():
         draft_amount = int(request.form.get('draft_amount'))
 
         df_draft = transaction(df_draft, drafted_player, drafting_team, draft_amount)
-        df_draft = calculate_updated_values(df_draft)
 
+    df_draft = calculate_updated_values(df_draft)
     df_draft.to_pickle(pickle_path)
     players = list(df_draft.index)
 
-    return render_template('index.html', draft_data_table=df_draft.to_html(classes='table', escape=False),
-                           teams=league_teams, players=players)
+    # summary stats
+    team_values = calculate_current_team_values(df_draft, league_teams)
+    team_spending, team_amount_remaining = calculate_team_spending(df_draft, league_teams)
+
+    return render_template('index.html', draft_data_table=df_draft.to_html(classes='table table-hover', escape=False),
+                           teams=league_teams, players=players, team_values=team_values, team_spending=team_spending,
+                           team_amount_remaining=team_amount_remaining)
 
 
 @app.route("/invalidate_draft_frame")
@@ -69,7 +74,6 @@ def replay():
         return redirect(url_for('main'))
 
     df.to_pickle(pickle_path)
-    print(df)
     flash("Successfully replayed transactions from log")
     return redirect(url_for('main'))
 

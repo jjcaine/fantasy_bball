@@ -35,7 +35,9 @@
         <button type="submit"class="btn btn-info">Submit</button>
     </form>
 
-    <p><a href="{{ url_for('invalidate_draft_frame') }}" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">Invalidate Data Frame</a>
+    <p>
+    <a class="btn btn-primary btn-lg" data-toggle="collapse" href="#draftSummary" role="button" aria-expanded="false" aria-controls="draftSummary">Draft Summary</a>
+    <a href="{{ url_for('invalidate_draft_frame') }}" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">Invalidate Data Frame</a>
     <a href="{{ url_for('replay') }}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Replay Transactions</a>
 
     <!-- Button trigger modal -->
@@ -61,6 +63,29 @@
         </div>
       </div>
     </div></p>
+
+    <div class=collapse id="draftSummary">
+        <table class="table table-hover">
+            <thead>
+                <th>Team</th>
+                <th>Players Drafted</th>
+                <th>Current Value</th>
+                <th>Current Spending</th>
+                <th>Amount Remaining</th>
+            </thead>
+            <tr>
+                {% for t in teams %}
+                <tr>
+                <td>{{ t }}</td>
+                <td> - </td>
+                <td>{{ team_values[t] }}</td>
+                <td>{{ team_spending[t] }}</td>
+                <td>{{ team_amount_remaining[t] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     <p>{{ draft_data_table|safe }}</p>
 </div>

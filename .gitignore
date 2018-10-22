@@ -3,3 +3,4 @@
 .DS_Store
 *.pkl
 app/__pycache__
+transactions.json
