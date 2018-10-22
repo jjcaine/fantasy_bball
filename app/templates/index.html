@@ -37,7 +37,8 @@
         <button type="submit"class="btn btn-info">Submit</button>
     </form>
 
-    <a href="{{ url_for('invalidate') }}" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">Invalidate Data Frame</a>
+    <a href="{{ url_for('invalidate_draft_frame') }}" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">Invalidate Data Frame</a>
+    <a href="{{ url_for('replay') }}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Replay Transactions</a>
     </form>
 
     <p>{{ draft_data_table|safe }}</p>

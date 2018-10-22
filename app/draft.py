@@ -1,3 +1,4 @@
+import json
 import os
 import logging
 
@@ -108,16 +109,32 @@ def initialize_draft(df):
     return df
 
 
-def transaction(df, player, team, dollar_amount):
+def transaction(df, player, team, dollar_amount, write_to_log=True, transaction_file_path='transactions.json'):
     """
     Takes in a dataframe, updates the player with who bought them and for what dollar amount, returns the
-    updated dataframe.
+    updated dataframe. Optionally calls log_transaction to log to the transaction file.
     """
     print(f'Player: {player}, Team: {team}, Dollar Amount: {dollar_amount}')
+    if write_to_log:
+        log_transaction(transaction_file_path, player, team, dollar_amount)
     df_updated = df.copy()
     df_updated.at[player, 'owned'] = team
     df_updated.at[player, 'sold_$'] = dollar_amount
     return df_updated
+
+
+def log_transaction(transaction_file_path, player, team, dollar_amount):
+    """Logs a transaction to the transaction file. Will create the file if it does not exist yet."""
+    j = {'transactions': []}
+    if os.path.isfile(transaction_file_path):
+        with open(transaction_file_path, 'r') as transaction_file:
+            j = json.load(transaction_file)
+
+    current_transaction = {'player': player, 'team': team, 'dollar_amount': dollar_amount}
+    j['transactions'].append(current_transaction)
+
+    with open(transaction_file_path, 'w') as transaction_file:
+        transaction_file.write(json.dumps(j, indent=4))
 
 
 def calculate_updated_values(df):
@@ -144,6 +161,16 @@ def calculate_team_spending(df, teams):
     for t in teams:
         dollars_spent = int(df.loc[(df['owned'] == t), ['sold_$']].sum())
         team_spending[t] = dollars_spent
+
+
+def replay_tranactions(df, transactions_file_path='transactions.json'):
+    transactions = {}
+    with open(transactions_file_path, 'r') as transactions_file:
+        transactions = json.load(transactions_file)
+
+    for t in transactions['transactions']:
+        df = transaction(df, t['player'], t['team'], t['dollar_amount'], write_to_log=False)
+    return df
 
 
 def get_pickled_df(path):

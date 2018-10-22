@@ -5,7 +5,8 @@ import os
 from flask import Flask, render_template, request, flash, redirect, url_for
 from flask.logging import default_handler
 
-from app.draft import get_data, compute_value, get_pickled_df, initialize_draft, teams, transaction, calculate_updated_values
+from app.draft import get_data, compute_value, get_pickled_df, initialize_draft, league_teams, transaction, \
+    calculate_updated_values, replay_tranactions
 from app.exceptions import DraftPickleException, DraftNotInitializedException
 
 root = logging.getLogger()
@@ -17,6 +18,7 @@ app.config['SECRET_KEY'] = 'super secret'
 
 pickle_path = './df_value.pkl'
 projections_path = '/Users/jjcaine/Downloads/BBM_projections.xls'
+transactions_file = 'transactions.json'
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -45,13 +47,24 @@ def main():
     players = list(df_draft.index)
 
     return render_template('index.html', draft_data_table=df_draft.to_html(classes='table', escape=False),
-                           teams=teams, players=players)
+                           teams=league_teams, players=players)
 
 
-@app.route("/invalidate")
-def invalidate():
+@app.route("/invalidate_draft_frame")
+def invalidate_draft_frame():
     os.remove(pickle_path)
     flash("Invalidated saved dataframe, reloaded projections")
+    return redirect(url_for('main'))
+
+
+@app.route('/replay')
+def replay():
+    df = get_pickled_df(pickle_path)
+    df = replay_tranactions(df, transactions_file_path=transactions_file)
+
+    df.to_pickle(pickle_path)
+    print(df)
+    flash("Successfully replayed transactions from log")
     return redirect(url_for('main'))
 
 
