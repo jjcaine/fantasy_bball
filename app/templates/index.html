@@ -64,7 +64,7 @@
       </div>
     </div></p>
 
-    <div class=collapse id="draftSummary">
+    <p><div class=collapse id="draftSummary">
         <table class="table table-hover">
             <thead>
                 <th>Team</th>
@@ -77,7 +77,7 @@
                 {% for t in teams %}
                 <tr>
                 <td>{{ t }}</td>
-                <td> - </td>
+                <td>{{ team_players_drafted[t] }}</td>
                 <td>{{ team_values[t] }}</td>
                 <td>{{ team_spending[t] }}</td>
                 <td>{{ team_amount_remaining[t] }}</td>
@@ -85,7 +85,8 @@
                 {% endfor %}
             </tbody>
         </table>
-    </div>
+    </div></p>
+
 
     <p>{{ draft_data_table|safe }}</p>
 </div>

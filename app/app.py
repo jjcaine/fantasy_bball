@@ -7,7 +7,8 @@ from flask import Flask, render_template, request, flash, redirect, url_for
 from flask.logging import default_handler
 
 from app.draft import get_data, compute_value, get_pickled_df, initialize_draft, league_teams, transaction, \
-    calculate_updated_values, replay_tranactions, calculate_current_team_values, calculate_team_spending
+    calculate_updated_values, replay_tranactions, calculate_current_team_values, calculate_team_spending, \
+    count_drafted_players
 from app.exceptions import DraftPickleException, DraftNotInitializedException, NoTransactionFileExists
 
 root = logging.getLogger()
@@ -50,10 +51,11 @@ def main():
     # summary stats
     team_values = calculate_current_team_values(df_draft, league_teams)
     team_spending, team_amount_remaining = calculate_team_spending(df_draft, league_teams)
+    team_players_drafted = count_drafted_players(df_draft, league_teams)
 
     return render_template('index.html', draft_data_table=df_draft.to_html(classes='table table-hover', escape=False),
                            teams=league_teams, players=players, team_values=team_values, team_spending=team_spending,
-                           team_amount_remaining=team_amount_remaining)
+                           team_amount_remaining=team_amount_remaining, team_players_drafted=team_players_drafted)
 
 
 @app.route("/invalidate_draft_frame")

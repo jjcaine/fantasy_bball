@@ -166,6 +166,14 @@ def calculate_team_spending(df, teams):
     return team_spending, amount_remaining
 
 
+def count_drafted_players(df, teams):
+    """Returns a dictionary with a count of players drafted for each team"""
+    player_count = {}
+    for t in teams:
+        player_count[t] = int(df.loc[(df['owned'] == t), 'g'].count())
+    return player_count
+
+
 def replay_tranactions(df, transactions_file_path='transactions.json'):
     transactions = {}
     try:
