@@ -7,3 +7,7 @@ class DraftPickleException(Exception):
 class DraftNotInitializedException(Exception):
     """Raise if somehow we try to modify the draft data frame and it hasn't been initialized"""
     pass
+
+
+class NoTransactionFileExists(Exception):
+    """Raise if the transaction file doesn't exist"""

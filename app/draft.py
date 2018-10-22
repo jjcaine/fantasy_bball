@@ -4,7 +4,7 @@ import logging
 
 import pandas as pd
 
-from app.exceptions import DraftPickleException
+from app.exceptions import DraftPickleException, NoTransactionFileExists
 
 log = logging.getLogger(__name__)
 
@@ -165,8 +165,11 @@ def calculate_team_spending(df, teams):
 
 def replay_tranactions(df, transactions_file_path='transactions.json'):
     transactions = {}
-    with open(transactions_file_path, 'r') as transactions_file:
-        transactions = json.load(transactions_file)
+    try:
+        with open(transactions_file_path, 'r') as transactions_file:
+            transactions = json.load(transactions_file)
+    except FileNotFoundError:
+        raise NoTransactionFileExists
 
     for t in transactions['transactions']:
         df = transaction(df, t['player'], t['team'], t['dollar_amount'], write_to_log=False)

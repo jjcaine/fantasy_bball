@@ -1,13 +1,14 @@
 import sys
 import logging
 import os
+from builtins import FileNotFoundError
 
 from flask import Flask, render_template, request, flash, redirect, url_for
 from flask.logging import default_handler
 
 from app.draft import get_data, compute_value, get_pickled_df, initialize_draft, league_teams, transaction, \
     calculate_updated_values, replay_tranactions
-from app.exceptions import DraftPickleException, DraftNotInitializedException
+from app.exceptions import DraftPickleException, DraftNotInitializedException, NoTransactionFileExists
 
 root = logging.getLogger()
 root.addHandler(default_handler)
@@ -60,11 +61,26 @@ def invalidate_draft_frame():
 @app.route('/replay')
 def replay():
     df = get_pickled_df(pickle_path)
-    df = replay_tranactions(df, transactions_file_path=transactions_file)
+
+    try:
+        df = replay_tranactions(df, transactions_file_path=transactions_file)
+    except NoTransactionFileExists:
+        flash("No log exists to replay")
+        return redirect(url_for('main'))
 
     df.to_pickle(pickle_path)
     print(df)
     flash("Successfully replayed transactions from log")
+    return redirect(url_for('main'))
+
+
+@app.route('/clear-log')
+def clear_log():
+    try:
+        os.remove(transactions_file)
+    except FileNotFoundError:
+        flash("No log file exists to clear")
+
     return redirect(url_for('main'))
 
 

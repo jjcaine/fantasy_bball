@@ -11,11 +11,9 @@
 <div class="container-fluid">
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-    <ul class=flashes>
         {% for message in messages %}
         <div class="alert alert-warning" role="alert">{{ message }}</div>
         {% endfor %}
-    </ul>
     {% endif %}
     {% endwith %}
     <h1>/g/NBA Does Fantasy 2.0 Draft</h1>
@@ -37,9 +35,32 @@
         <button type="submit"class="btn btn-info">Submit</button>
     </form>
 
-    <a href="{{ url_for('invalidate_draft_frame') }}" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">Invalidate Data Frame</a>
+    <p><a href="{{ url_for('invalidate_draft_frame') }}" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">Invalidate Data Frame</a>
     <a href="{{ url_for('replay') }}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Replay Transactions</a>
-    </form>
+
+    <!-- Button trigger modal -->
+    <a type="button" class="btn btn-danger btn-lg active" role="button" aria-pressed="true" data-toggle="modal" data-target="#confirmClearTransactionLog">Clear Transaction Log</a>
+
+    <!-- Modal -->
+    <div class="modal fade" id="confirmClearTransactionLog" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal_title">Warning! Confirm Clearing Transaction Log</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Potentially dangerous operation! Are you SURE you want to clear the transaction log?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Nevermind, don't clear the log</button>
+            <a href="{{ url_for('clear_log') }}" class="btn btn-danger active" role="button" aria-pressed="true">Yes, clear the log</a>
+          </div>
+        </div>
+      </div>
+    </div></p>
 
     <p>{{ draft_data_table|safe }}</p>
 </div>
