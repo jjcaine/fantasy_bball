@@ -34,24 +34,24 @@ league_teams = ['Team Lyons (Shawn Lyons)',
                 ]
 
 # For mock drafts
-# league_teams = [
-# 'Team Caine',
-# 'Team 2',
-# 'Team 3',
-# 'Team 4',
-# 'Team 5',
-# 'Team 6',
-# 'Team 7',
-# 'Team 8',
-# 'Team 9',
-# 'Team 10',
-# 'Team 11',
-# 'Team 12',
-# 'Team 13',
-# 'Team 14',
-# 'Team 15',
-# 'Team 16'
-# ]
+league_teams = [
+'Team Caine',
+'Team 2',
+'Team 3',
+'Team 4',
+'Team 5',
+'Team 6',
+'Team 7',
+'Team 8',
+'Team 9',
+'Team 10',
+'Team 11',
+'Team 12',
+'Team 13',
+'Team 14',
+'Team 15',
+'Team 16'
+]
 
 scoring_categories = ['adjfg%', 'ft%', '3/g', '3%', 'or/g', 'dr/g', 'a/g', 's/g', 'b/g', 'to/g', 'p/g']
 display_columns = ['calculated_value', 'g', 'm/g', 'Inj', 'Team'] + scoring_categories
