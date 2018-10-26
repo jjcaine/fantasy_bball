@@ -15,24 +15,26 @@ roster_size = 14
 starters = 10
 total_players = num_teams * roster_size
 
-league_teams = ['ALyons',
-                'Baird',
-                'Beesley',
-                'Caine',
-                'Daza',
-                'Deye',
-                'Duncan',
-                'Dzialo',
-                'Jacobs',
-                'Nunes',
-                'Raterman',
-                'SLyons',
-                'Sanderson',
-                'Skrzydlak',
-                'Trivett']
+league_teams = ['Team Lyons (Shawn Lyons)',
+                'Florida Man (Charlie Deye)',
+                'Team Jacobs (Kyle Jacobs)',
+                'Luka Mateam! (Mark Skrzydlak)',
+                'Great White Buffalo (Ren Nunes)',
+                'NBA- Nothing But Aquisitions (Chris Baird)',
+                'Team Sanderson (Aaron Sanderson)',
+                'Team Dzialo (Bryan Dzialo)',
+                'Team Raterman (Tom Raterman)',
+                'If There Ever Was a BM (Nick Trivett)',
+                'Control The Narrative (Anthony McCready)',
+                'Midrange Jumper Is Underrated (Eric Duncan)',
+                'Pipe Dreams (John Caine)',
+                'Team DAZA (Luis Daza)',
+                'Game... Blouses (Evan Beesley)',
+                'Team A Lyons (Adam Lyons)'
+                ]
 
 scoring_categories = ['adjfg%', 'ft%', '3/g', '3%', 'or/g', 'dr/g', 'a/g', 's/g', 'b/g', 'to/g', 'p/g']
-display_columns = ['calculated_value', 'g', 'm/g'] + scoring_categories
+display_columns = ['calculated_value', 'g', 'm/g', 'Inj', 'Team'] + scoring_categories
 
 
 def get_data(projections_path):
@@ -94,18 +96,17 @@ def compute_value(df, replacement_approach='median'):
     df_value['calculated_$'] = dollar_per_value_point * df_value['calculated_value']
 
     # return the df_value with the columns we care about for later on
-    final_columns = ['calculated_value', 'calculated_$', 'g', 'm/g'] + scoring_categories + ['rank']
+    final_columns = ['calculated_value', 'calculated_$', 'g', 'm/g', 'Team', 'Inj'] + scoring_categories + ['rank']
     return df_value.loc[:, final_columns]
 
 
 def initialize_draft(df):
     """All this does is take in a df and add the 'owned' and 'sold_$' columns"""
 
-    df.insert(2, 'sold_$', 0)
-    df.insert(3, 'owned', 'Avail')
-
-    df.insert(4, 'new_$', df['calculated_$'])
-    df.insert(5, 'bargain_$', df['calculated_$'] - df['new_$'])
+    df.insert(2, 'new_$', df['calculated_$'])
+    df.insert(3, 'bargain_$', df['calculated_$'] - df['new_$'])
+    df.insert(4, 'sold_$', 0)
+    df.insert(5, 'owned', 'Avail')
     return df
 
 
@@ -148,10 +149,9 @@ def calculate_current_team_values(df, teams):
     """Returns a dictionary with all teams and their total value"""
     team_values = {}
     for t in teams:
-        value = float(df.loc[(df['owned'] == t), ['calculated_value']].sum())
+        value = round(float(df.loc[(df['owned'] == t), ['calculated_value']].sum()), 2)
         team_values[t] = value
 
-    print(team_values)
     return team_values
 
 
@@ -172,6 +172,14 @@ def count_drafted_players(df, teams):
     for t in teams:
         player_count[t] = int(df.loc[(df['owned'] == t), 'g'].count())
     return player_count
+
+def dollar_player_average_remaining(df, teams):
+    """Returns a dictionary with how much each team can spend on avg for the number of players they have remaining"""
+    average_remaining = {}
+    for t in teams:
+        average_remaining[t] = round((team_budget - int(df.loc[(df['owned'] == t), ['sold_$']].sum())) /(roster_size - int(df.loc[(df['owned'] == t), 'g'].count())), 2)
+    return average_remaining
+
 
 
 def replay_tranactions(df, transactions_file_path='transactions.json'):

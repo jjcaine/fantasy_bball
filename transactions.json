@@ -1,29 +1,24 @@
 {
     "transactions": [
         {
-            "player": "Anthony Davis",
-            "team": "Caine",
-            "dollar_amount": 78
+            "player": "LeBron James",
+            "team": "ALyons",
+            "dollar_amount": 55
         },
         {
-            "player": "Anthony Davis",
-            "team": "Caine",
-            "dollar_amount": 78
+            "player": "LeBron James",
+            "team": "Team Lyons (Shawn Lyons)",
+            "dollar_amount": 55
         },
         {
-            "player": "James Harden",
-            "team": "Deye",
+            "player": "Luka Doncic",
+            "team": "Luka Mateam! (Mark Skrzydlak)",
             "dollar_amount": 112
         },
         {
-            "player": "Kevin Durant",
-            "team": "Caine",
-            "dollar_amount": 105
-        },
-        {
-            "player": "Kevin Love",
-            "team": "Deye",
-            "dollar_amount": 110
+            "player": "James Harden",
+            "team": "Florida Man (Charlie Deye)",
+            "dollar_amount": 150
         }
     ]
 }
