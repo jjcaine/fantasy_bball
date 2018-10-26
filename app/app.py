@@ -19,7 +19,7 @@ app.debug = True
 app.config['SECRET_KEY'] = 'super secret'
 
 pickle_path = './df_value.pkl'
-projections_path = '/Users/jjcaine/Downloads/BBM_projections.xls'
+projections_path = '/Users/jjcaine/Downloads/BBM_projections_combined.xls'
 transactions_file = 'transactions.json'
 
 
@@ -53,7 +53,9 @@ def main():
     team_spending, team_amount_remaining = calculate_team_spending(df_draft, league_teams)
     team_players_drafted = count_drafted_players(df_draft, league_teams)
 
-    return render_template('index.html', draft_data_table=df_draft.to_html(classes='table table-hover', escape=False),
+    availability = lambda x: '<span class="available">' + x + '</span>' if x == 'Avail' else '<span class="unavailable">' + x + '</span>'
+
+    return render_template('index.html', draft_data_table=df_draft.to_html(classes='table table-hover', escape=False, formatters={'owned': availability}),
                            teams=league_teams, players=players, team_values=team_values, team_spending=team_spending,
                            team_amount_remaining=team_amount_remaining, team_players_drafted=team_players_drafted)
 
