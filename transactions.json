@@ -19,6 +19,226 @@
             "player": "James Harden",
             "team": "Florida Man (Charlie Deye)",
             "dollar_amount": 150
+        },
+        {
+            "player": "Giannis Antetokounmpo",
+            "team": "Florida Man (Charlie Deye)",
+            "dollar_amount": 54
+        },
+        {
+            "player": "Karl-Anthony Towns",
+            "team": "Team 12",
+            "dollar_amount": 97
+        },
+        {
+            "player": "James Harden",
+            "team": "Team 10",
+            "dollar_amount": 106
+        },
+        {
+            "player": "Giannis Antetokounmpo",
+            "team": "Team 5",
+            "dollar_amount": 108
+        },
+        {
+            "player": "Anthony Davis",
+            "team": "Team 2",
+            "dollar_amount": 100
+        },
+        {
+            "player": "Kevin Durant",
+            "team": "Team 14",
+            "dollar_amount": 94
+        },
+        {
+            "player": "Nikola Jokic",
+            "team": "Team 15",
+            "dollar_amount": 81
+        },
+        {
+            "player": "Damian Lillard",
+            "team": "Team 11",
+            "dollar_amount": 92
+        },
+        {
+            "player": "Stephen Curry",
+            "team": "14",
+            "dollar_amount": 84
+        },
+        {
+            "player": "Russell Westbrook",
+            "team": "13",
+            "dollar_amount": 99
+        },
+        {
+            "player": "Kyle Lowry",
+            "team": "Team 6",
+            "dollar_amount": 86
+        },
+        {
+            "player": "Ben Simmons",
+            "team": "Team 15",
+            "dollar_amount": 72
+        },
+        {
+            "player": "John Wall",
+            "team": "Team 2",
+            "dollar_amount": 69
+        },
+        {
+            "player": "DeMar DeRozan",
+            "team": "Team 4",
+            "dollar_amount": 73
+        },
+        {
+            "player": "Andre Drummond",
+            "team": "Team Caine",
+            "dollar_amount": 74
+        },
+        {
+            "player": "Kawhi Leonard",
+            "team": "Team 6",
+            "dollar_amount": 77
+        },
+        {
+            "player": "Joel Embiid",
+            "team": "12",
+            "dollar_amount": 63
+        },
+        {
+            "player": "Jimmy Butler",
+            "team": "Team 8",
+            "dollar_amount": 66
+        },
+        {
+            "player": "LaMarcus Aldridge",
+            "team": "Team Caine",
+            "dollar_amount": 66
+        },
+        {
+            "player": "Chris Paul",
+            "team": "Team 3",
+            "dollar_amount": 56
+        },
+        {
+            "player": "Kemba Walker",
+            "team": "Team 16",
+            "dollar_amount": 56
+        },
+        {
+            "player": "Victor Oladipo",
+            "team": "14",
+            "dollar_amount": 55
+        },
+        {
+            "player": "Jrue Holiday",
+            "team": "Team 8",
+            "dollar_amount": 53
+        },
+        {
+            "player": "Bradley Beal",
+            "team": "Team 10",
+            "dollar_amount": 48
+        },
+        {
+            "player": "Donovan Mitchell",
+            "team": "Team 8",
+            "dollar_amount": 49
+        },
+        {
+            "player": "Kevin Love",
+            "team": "Team 4",
+            "dollar_amount": 48
+        },
+        {
+            "player": "Paul George",
+            "team": "Team 16",
+            "dollar_amount": 49
+        },
+        {
+            "player": "Draymond Green",
+            "team": "Team 7",
+            "dollar_amount": 38
+        },
+        {
+            "player": "DeAndre Jordan",
+            "team": "Team 9",
+            "dollar_amount": 33
+        },
+        {
+            "player": "Kyrie Irving",
+            "team": "Team 3",
+            "dollar_amount": 42
+        },
+        {
+            "player": "C.J. McCollum",
+            "team": "Team 15",
+            "dollar_amount": 37
+        },
+        {
+            "player": "Khris Middleton",
+            "team": "Team 13",
+            "dollar_amount": 40
+        },
+        {
+            "player": "Marc Gasol",
+            "team": "Team 4",
+            "dollar_amount": 36
+        },
+        {
+            "player": "Clint Capela",
+            "team": "Team 13",
+            "dollar_amount": 34
+        },
+        {
+            "player": "Devin Booker",
+            "team": "Team 10",
+            "dollar_amount": 34
+        },
+        {
+            "player": "LeBron James",
+            "team": "Team 9",
+            "dollar_amount": 96
+        },
+        {
+            "player": "Lou Williams",
+            "team": "Team 5",
+            "dollar_amount": 32
+        },
+        {
+            "player": "Deandre Ayton",
+            "team": "Team Caine",
+            "dollar_amount": 30
+        },
+        {
+            "player": "Goran Dragic",
+            "team": "Team 16",
+            "dollar_amount": 31
+        },
+        {
+            "player": "Dwight Howard",
+            "team": "Team 12",
+            "dollar_amount": 29
+        },
+        {
+            "player": "Ricky Rubio",
+            "team": "Team 3",
+            "dollar_amount": 25
+        },
+        {
+            "player": "John Collins",
+            "team": "Team 9",
+            "dollar_amount": 26
+        },
+        {
+            "player": "Julius Randle",
+            "team": "Team 9",
+            "dollar_amount": 24
+        },
+        {
+            "player": "Mike Conley",
+            "team": "Team 3",
+            "dollar_amount": 25
         }
     ]
 }

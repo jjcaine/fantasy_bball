@@ -61,8 +61,8 @@ def main():
     availability = lambda x: '<span class="available">' + x + '</span>' if x == 'Avail' else '<span class="unavailable">' + x + '</span>'
 
     return render_template('index.html', draft_data_table=df_draft.round(decimals=2).to_html(classes='table table-hover', escape=False,
-                                                                           formatters={'owned': availability}),
-                           table_id='player-table', teams=league_teams, players=players, team_values=team_values,
+                                                                           formatters={'owned': availability}, table_id='player-table'),
+                           teams=league_teams, players=players, team_values=team_values,
                            team_spending=team_spending, team_amount_remaining=team_amount_remaining,
                            team_players_drafted=team_players_drafted,
                            average_spending_remaining=average_spending_remaining)
