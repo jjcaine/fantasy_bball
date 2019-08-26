@@ -4,3 +4,4 @@
 *.pkl
 app/__pycache__
 transactions.json
+.vscode

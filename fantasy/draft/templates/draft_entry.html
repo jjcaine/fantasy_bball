@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="ui-widget">
+            <input class="form-control col-sm-2" type="text" id="player-dropdown" name="drafted_player"
+                placeholder="Player" autocomplete="off"></div>
+        <input class="form-control col-sm-2" type="text" id="team-dropdown" name="drafting_team" placeholder="Team"
+            autocomplete="off">
+        <input class="form-control col-sm-2" type="text" name="draft_amount" placeholder="$ Amount" autocomplete="off">
+    </div>
+    <button type="submit" class="btn btn-info">Submit</button>
+</form>
+
+{% endblock content %}
+
+
+{% block custom_scripting %}
+<script>
+    $(document).ready(function () {
+
+        $("#player-table tbody").attr("class", "searchable");
+
+        $(".dataframe tr").each(function () {
+            $this = $(this);
+            var row_index = $this.index();
+            if (row_index != 0 && row_index % 10 == 0) {
+                $this.after('<tr style="text-align: center;"><th></th><th>calculated_value</th><th>calculated_$</th><th>new_$</th><th>bargain_$</th><th>sold_$</th><th>owned</th><th>g</th><th>m/g</th><th>Team</th><th>Inj</th><th>adjfg%</th><th>ft%</th><th>3/g</th><th>3%</th><th>or/g</th><th>dr/g</th><th>a/g</th><th>s/g</th><th>b/g</th><th>to/g</th><th>p/g</th><th>rank</th></tr>')
+            }
+        });
+
+        var players = [{% for p in players %} "{{p|safe}}", {% endfor %} ];
+    $("#player-dropdown").autocomplete({ source: players });
+
+    var teams = [{% for t in teams %} "{{t|safe}}", {% endfor %} ];
+    $("#team-dropdown").autocomplete({ source: teams });
+
+    // $(".available").parent().parent().css({"background-color": "#98D3B1"});
+    $(".unavailable").parent().parent().css({ "background-color": "#F9B1A9" });
+
+
+    (function ($) {
+
+        $('#player-dropdown').keyup(function () {
+
+            var rex = new RegExp($(this).val(), 'i');
+            $('.searchable tr').hide();
+            $('.searchable tr').filter(function () {
+                return rex.test($(this).text());
+            }).show();
+
+        })
+        $('#player-dropdown').click(function () {
+
+            var rex = new RegExp($(this).val(), 'i');
+            $('.searchable tr').hide();
+            $('.searchable tr').filter(function () {
+                return rex.test($(this).text());
+            }).show();
+
+        })
+
+    }(jQuery));
+        });
+</script>
+{% endblock custom_scripting %}

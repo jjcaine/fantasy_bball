@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block custom_meta %}
+<meta http-equiv="refresh" content="3"/>
+{% endblock custom_meta %}
+    
+{% block content %}
+<p>{{ draft_data_table|safe }}</p>
+{% endblock content %}
