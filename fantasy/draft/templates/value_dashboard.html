@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<table id="draftSummaryTable" class="table table-hover" data-toggle="table">
+    <thead>
+        <th data-sortable="true">Team</th>
+        <th data-sortable="true">Players Drafted</th>
+        <th data-sortable="true">Current Value</th>
+        <th data-sortable="true">Current Spending</th>
+        <th data-sortable="true">Amount Remaining</th>
+        <th data-sortable="true">Average Spending Remaining</th>
+    </thead>
+    <tr>
+        {% for t in teams %}
+        <tr>
+        <td>{{ t }}</td>
+        <td>{{ team_players_drafted|get_item:t }}</td>
+        <td>{{ team_values|get_item:t }}</td>
+        <td>{{ team_spending|get_item:t }}</td>
+        <td>{{ team_amount_remaining|get_item:t }}</td>
+        <td>{{ average_spending_remaining|get_item:t }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

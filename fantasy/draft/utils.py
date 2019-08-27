@@ -2,6 +2,8 @@ import json
 import os
 import logging
 
+from django.template.defaulttags import register
+
 import pandas as pd
 
 from .exceptions import DraftPickleException, NoTransactionFileExists
@@ -218,3 +220,8 @@ def get_pickled_df(path):
         return pd.read_pickle(path)
     else:
         raise DraftPickleException("Pickle file does not exist")
+
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)

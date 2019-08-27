@@ -1,19 +1,14 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 
 {% block content %}
 
 <form method="POST">
     {% csrf_token %}
+    {{ form|crispy }}
     <div class="form-group">
-        <div class="ui-widget">
-            <input class="form-control col-sm-2" type="text" id="player-dropdown" name="drafted_player"
-                placeholder="Player" autocomplete="off"></div>
-        <input class="form-control col-sm-2" type="text" id="team-dropdown" name="drafting_team" placeholder="Team"
-            autocomplete="off">
-        <input class="form-control col-sm-2" type="text" name="draft_amount" placeholder="$ Amount" autocomplete="off">
+        <button class="btn btn-outline-info" type="submit">Submit</button>
     </div>
-    <button type="submit" class="btn btn-info">Submit</button>
 </form>
 
 {% endblock content %}
@@ -34,6 +29,7 @@
         });
 
         var players = [{% for p in players %} "{{p|safe}}", {% endfor %} ];
+        
     $("#player-dropdown").autocomplete({ source: players });
 
     var teams = [{% for t in teams %} "{{t|safe}}", {% endfor %} ];
