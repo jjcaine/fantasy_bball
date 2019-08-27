@@ -10,6 +10,44 @@
         <button class="btn btn-outline-info" type="submit">Submit</button>
     </div>
 </form>
+<hr>
+<h3>Admin Functions</h3>
+<p>
+    <div class="form-group">
+        <a class="btn btn-primary btn-lg" data-toggle="collapse" href="#draftSummary" role="button"
+            aria-expanded="false" aria-controls="draftSummary">Draft Summary</a>
+        <a href="#" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">Invalidate Data Frame</a>
+        <a href="#" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Replay Transactions</a>
+
+        <!-- Button trigger modal -->
+        <a type="button" class="btn btn-danger btn-lg active" role="button" aria-pressed="true" data-toggle="modal"
+            data-target="#confirmClearTransactionLog">Clear Transaction Log</a>
+
+        <!-- Modal -->
+        <div class="modal fade" id="confirmClearTransactionLog" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal_title">Warning! Confirm Clearing Transaction Log</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Potentially dangerous operation! Are you SURE you want to clear the transaction log?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Nevermind, don't clear the
+                            log</button>
+                        <a href="#" class="btn btn-danger active" role="button" aria-pressed="true">Yes, clear the
+                            log</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</p>
 
 {% endblock content %}
 
@@ -29,7 +67,7 @@
         });
 
         var players = [{% for p in players %} "{{p|safe}}", {% endfor %} ];
-        
+
     $("#player-dropdown").autocomplete({ source: players });
 
     var teams = [{% for t in teams %} "{{t|safe}}", {% endfor %} ];
