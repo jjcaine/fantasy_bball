@@ -201,6 +201,9 @@ def dollar_player_average_remaining(df, teams):
     return average_remaining
 
 
+def top_available_players(df, top_n):
+    return df.loc[df['owned'] == 'Avail'].head(top_n)
+
 
 def replay_tranactions(df, transactions_file_path='transactions.json'):
     transactions = {}

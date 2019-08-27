@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('draft_board', draft_views.draft_board, name='draft_board'),
     path('draft_entry', draft_views.draft_entry, name='draft_entry'),
-    path('value_dashboard', draft_views.value_dashboard, name='value_dashboard')
+    path('value_dashboard', draft_views.value_dashboard, name='value_dashboard'),
+    path('top_available', draft_views.top_available_players_board, name='top_available')
 ]
