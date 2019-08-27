@@ -1,4 +1,7 @@
+import os
+
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
 from .utils import get_data, compute_value, get_pickled_df, initialize_draft, league_teams, transaction, \
     calculate_updated_values, replay_tranactions, calculate_current_team_values, calculate_team_spending, \
@@ -10,6 +13,9 @@ pickle_path = './df_value.pkl'
 projections_path = '/Users/jjcaine/Downloads/BBM_projections_combined.xls'
 transactions_file = 'transactions.json'
 
+
+def index(request):
+    return render(request, 'index.html')
 
 def value_dashboard(request):
     """View to display all teams and their current drafted players, team value,
@@ -123,3 +129,9 @@ def top_available_players_board(request):
                                                                                escape=False,
                                                                                table_id='player-table'),
     })
+
+
+def invalidate_draft_frame(request):
+    os.remove(pickle_path)
+    messages.success(request, "Invalidated saved dataframe, reloaded projections")
+    return redirect('draft_entry')
