@@ -120,7 +120,7 @@ def compute_value(df, replacement_approach='median'):
     return df_value.loc[:, final_columns]
 
 
-def initialize_draft(df):
+def initialize_draft_dataframe(df):
     """All this does is take in a df and add the 'owned' and 'sold_$' columns"""
 
     df.insert(2, 'new_$', df['calculated_$'])

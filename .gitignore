@@ -5,3 +5,7 @@
 app/__pycache__
 transactions.json
 .vscode
+
+fantasy/draft/__pycache__
+fantasy/fantasy/__pycache__
+fantasy/__pycache__

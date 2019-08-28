@@ -3,7 +3,7 @@ import os
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
-from .utils import get_data, compute_value, get_pickled_df, initialize_draft, league_teams, transaction, \
+from .utils import get_data, compute_value, get_pickled_df, initialize_draft_dataframe, league_teams, transaction, \
     calculate_updated_values, replay_tranactions, calculate_current_team_values, calculate_team_spending, \
     count_drafted_players, dollar_player_average_remaining, top_available_players
 from .exceptions import DraftNotInitializedException, DraftPickleException
@@ -47,7 +47,7 @@ def draft_entry(request):
     except DraftPickleException:
         df_draft = get_data(projections_path)
         df_draft = compute_value(df_draft, replacement_approach='mean')
-        df_draft = initialize_draft(df_draft)
+        df_draft = initialize_draft_dataframe(df_draft)
 
     if request.method == 'POST':
         if df_draft is None:
@@ -86,7 +86,7 @@ def draft_board(request):
     except DraftPickleException:
         df_draft = get_data(projections_path)
         df_draft = compute_value(df_draft, replacement_approach='mean')
-        df_draft = initialize_draft(df_draft)
+        df_draft = initialize_draft_dataframe(df_draft)
 
     df_draft = calculate_updated_values(df_draft)
     df_draft.to_pickle(pickle_path)
@@ -132,6 +132,29 @@ def top_available_players_board(request):
 
 
 def invalidate_draft_frame(request):
-    os.remove(pickle_path)
+    try:
+        os.remove(pickle_path)
+    except FileNotFoundError:
+        messages.warning(request, "No dataframe file to invalidate.")
+        pass
+    df_draft = get_data(projections_path)
+    df_draft = compute_value(df_draft, replacement_approach='mean')
+    df_draft = initialize_draft_dataframe(df_draft)
+    df_draft = calculate_updated_values(df_draft)
+    df_draft.to_pickle(pickle_path)
     messages.success(request, "Invalidated saved dataframe, reloaded projections")
+    return redirect('draft_entry')
+
+
+def replay(request):
+    df = get_pickled_df(pickle_path)
+
+    try:
+        df = replay_tranactions(df, transactions_file_path=transactions_file)
+    except NoTransactionFileExists:
+        messages.error(request, "No log exists to replay")
+        return redirect('draft_entry')
+    
+    df.to_pickle(pickle_path)
+    messages.success(request, "Successfully replayed transactions from log")
     return redirect('draft_entry')

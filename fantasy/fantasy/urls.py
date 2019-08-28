@@ -25,5 +25,6 @@ urlpatterns = [
     path('draft_entry', draft_views.draft_entry, name='draft_entry'),
     path('value_dashboard', draft_views.value_dashboard, name='value_dashboard'),
     path('top_available', draft_views.top_available_players_board, name='top_available'),
-    path('invalidate_data_frame', draft_views.invalidate_draft_frame, name='invalidate_data_frame')
+    path('invalidate_data_frame', draft_views.invalidate_draft_frame, name='invalidate_data_frame'),
+    path('replay', draft_views.replay, name='replay')
 ]
