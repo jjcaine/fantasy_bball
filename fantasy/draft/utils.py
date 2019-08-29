@@ -61,7 +61,6 @@ display_columns = ['calculated_value', 'g',
 
 def get_data(projections_path):
     """Opens a projection Excel sheet and returns a pandas dataframe"""
-
     df = pd.read_excel(projections_path, index_col='Rank', dtype={'Inj': str})
     return df
 
