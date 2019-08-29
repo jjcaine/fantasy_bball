@@ -29,9 +29,6 @@ def test_log_transaction(tmp_path):
 @pytest.mark.parametrize("player,team,dollar_amount", [('', '', ''), (None, None, None)])
 def test_log_invalid_transaction(tmp_path, player, team, dollar_amount):
     transaction_file_path = os.path.join(tmp_path, 'test_file1.json')
-    player = ''
-    team = ''
-    dollar_amount = None
 
     with pytest.raises(InvalidTransactionException):
         assert log_transaction(transaction_file_path, player, team, dollar_amount)
