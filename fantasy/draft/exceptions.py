@@ -11,3 +11,7 @@ class DraftNotInitializedException(Exception):
 
 class NoTransactionFileExists(Exception):
     """Raise if the transaction file doesn't exist"""
+
+
+class InvalidTransactionException(Exception):
+    """Raise if an invalid transaction is attempted"""

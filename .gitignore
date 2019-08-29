@@ -9,4 +9,5 @@ transactions.json
 fantasy/draft/__pycache__
 fantasy/fantasy/__pycache__
 fantasy/__pycache__
+tests/__pycache__
 *.pyc

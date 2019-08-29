@@ -6,7 +6,7 @@ from django.template.defaulttags import register
 
 import pandas as pd
 
-from .exceptions import DraftPickleException, NoTransactionFileExists
+from .exceptions import DraftPickleException, NoTransactionFileExists, InvalidTransactionException
 
 num_teams = 16
 team_budget = 269
@@ -145,16 +145,20 @@ def transaction(df, player, team, dollar_amount, write_to_log=True, transaction_
 
 def log_transaction(transaction_file_path, player, team, dollar_amount):
     """Logs a transaction to the transaction file. Will create the file if it does not exist yet."""
-    j = {'transactions': []}
-    if os.path.isfile(transaction_file_path):
-        with open(transaction_file_path, 'r') as transaction_file:
-            j = json.load(transaction_file)
+    if transaction_file_path and player and dollar_amount:
 
-    current_transaction = {'player': player, 'team': team, 'dollar_amount': dollar_amount}
-    j['transactions'].append(current_transaction)
+        j = {'transactions': []}
+        if os.path.isfile(transaction_file_path):
+            with open(transaction_file_path, 'r') as transaction_file:
+                j = json.load(transaction_file)
 
-    with open(transaction_file_path, 'w') as transaction_file:
-        transaction_file.write(json.dumps(j, indent=4))
+        current_transaction = {'player': player, 'team': team, 'dollar_amount': dollar_amount}
+        j['transactions'].append(current_transaction)
+
+        with open(transaction_file_path, 'w') as transaction_file:
+            transaction_file.write(json.dumps(j, indent=4))
+    else:
+        raise InvalidTransactionException
 
 
 def calculate_updated_values(df):
