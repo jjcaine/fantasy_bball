@@ -3,6 +3,7 @@
 
 {% block content %}
 
+<h3>Draft Entry</h3>
 <form method="POST">
     {% csrf_token %}
     {{ form|crispy }}
@@ -14,10 +15,8 @@
 <h3>Admin Functions</h3>
 <p>
     <div class="form-group">
-        <a class="btn btn-primary btn-lg" data-toggle="collapse" href="#draftSummary" role="button"
-            aria-expanded="false" aria-controls="draftSummary">Draft Summary</a>
-        <a href="#" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">Invalidate Data Frame</a>
-        <a href="#" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Replay Transactions</a>
+        <a href="{% url 'invalidate_data_frame' %}" class="btn btn-danger btn-lg active" role="button" aria-pressed="true">Invalidate Data Frame</a>
+        <a href="{% url 'replay' %}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Replay Transactions</a>
 
         <!-- Button trigger modal -->
         <a type="button" class="btn btn-danger btn-lg active" role="button" aria-pressed="true" data-toggle="modal"

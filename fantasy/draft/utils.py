@@ -6,7 +6,7 @@ from django.template.defaulttags import register
 
 import pandas as pd
 
-from .exceptions import DraftPickleException, NoTransactionFileExists
+from .exceptions import DraftPickleException, NoTransactionFileExists, InvalidTransactionException
 
 num_teams = 16
 team_budget = 269
@@ -35,26 +35,28 @@ league_teams = ['Team Lyons (Shawn Lyons)',
 
 # For mock drafts
 league_teams = [
-'Team Caine',
-'Team 2',
-'Team 3',
-'Team 4',
-'Team 5',
-'Team 6',
-'Team 7',
-'Team 8',
-'Team 9',
-'Team 10',
-'Team 11',
-'Team 12',
-'Team 13',
-'Team 14',
-'Team 15',
-'Team 16'
+    'Team Caine',
+    'Team 2',
+    'Team 3',
+    'Team 4',
+    'Team 5',
+    'Team 6',
+    'Team 7',
+    'Team 8',
+    'Team 9',
+    'Team 10',
+    'Team 11',
+    'Team 12',
+    'Team 13',
+    'Team 14',
+    'Team 15',
+    'Team 16'
 ]
 
-scoring_categories = ['adjfg%', 'ft%', '3/g', '3%', 'or/g', 'dr/g', 'a/g', 's/g', 'b/g', 'to/g', 'p/g']
-display_columns = ['calculated_value', 'g', 'm/g', 'Inj', 'Team'] + scoring_categories
+scoring_categories = ['adjfg%', 'ft%', '3/g', '3%',
+                      'or/g', 'dr/g', 'a/g', 's/g', 'b/g', 'to/g', 'p/g']
+display_columns = ['calculated_value', 'g',
+                   'm/g', 'Inj', 'Team'] + scoring_categories
 
 
 def get_data(projections_path):
@@ -84,9 +86,11 @@ def compute_value(df, replacement_approach='median'):
 
     # calculate what a replacement player looks like, depending on the approach (median vs mean)
     if replacement_approach == 'median':
-        replacement = df.loc[total_players + 10:total_players + 60, scoring_categories].median()
+        replacement = df.loc[total_players +
+                             10:total_players + 60, scoring_categories].median()
     elif replacement_approach == 'mean':
-        replacement = df.loc[total_players + 10:total_players + 60, scoring_categories].mean()
+        replacement = df.loc[total_players +
+                             10:total_players + 60, scoring_categories].mean()
     else:
         Exception("Replacement approach must be 'median' or 'mean'")
 
@@ -97,7 +101,8 @@ def compute_value(df, replacement_approach='median'):
     value = stat_value.sum(axis=1)
 
     # join that back to the main stats dataframe
-    df_value = df.join(value.to_frame(), on="Rank").rename(columns={0: "calculated_value"}).sort_values(by=['calculated_value'], ascending=False)
+    df_value = df.join(value.to_frame(), on="Rank").rename(columns={
+        0: "calculated_value"}).sort_values(by=['calculated_value'], ascending=False)
 
     # the old index is now arbitrary, so Names will be our new index
     df_value = df_value.set_index('Name', drop=True).loc[:, display_columns]
@@ -107,20 +112,23 @@ def compute_value(df, replacement_approach='median'):
 
     # get the total output of the league, ie the value sum of all the top x players in our league, where x is
     # the number of players per roster multiplied by the number of teams
-    total_league_value_output = float(df_value.loc[(df_value['rank'] <= total_players), ['calculated_value']].sum())
+    total_league_value_output = float(
+        df_value.loc[(df_value['rank'] <= total_players), ['calculated_value']].sum())
 
     # ratio of dollars per value point. this allows us to project how much each player is "worth"
     dollar_per_value_point = league_dollars_total / total_league_value_output
 
     # multiple our ratio by the value of each player to get the projected amout
-    df_value['calculated_$'] = dollar_per_value_point * df_value['calculated_value']
+    df_value['calculated_$'] = dollar_per_value_point * \
+        df_value['calculated_value']
 
     # return the df_value with the columns we care about for later on
-    final_columns = ['calculated_value', 'calculated_$', 'g', 'm/g', 'Team', 'Inj'] + scoring_categories + ['rank']
+    final_columns = ['calculated_value', 'calculated_$', 'g',
+                     'm/g', 'Team', 'Inj'] + scoring_categories + ['rank']
     return df_value.loc[:, final_columns]
 
 
-def initialize_draft(df):
+def initialize_draft_dataframe(df):
     """All this does is take in a df and add the 'owned' and 'sold_$' columns"""
 
     df.insert(2, 'new_$', df['calculated_$'])
@@ -135,12 +143,17 @@ def transaction(df, player, team, dollar_amount, write_to_log=True, transaction_
     Takes in a dataframe, updates the player with who bought them and for what dollar amount, returns the
     updated dataframe. Optionally calls log_transaction to log to the transaction file.
     """
-    if write_to_log:
-        log_transaction(transaction_file_path, player, team, dollar_amount)
-    df_updated = df.copy()
-    df_updated.at[player, 'owned'] = team
-    df_updated.at[player, 'sold_$'] = dollar_amount
-    return df_updated
+    if player and team and (dollar_amount and dollar_amount > 0):
+        if write_to_log:
+            log_transaction(transaction_file_path, player, team, dollar_amount)
+        df_updated = df.copy()
+        df_updated.at[player, 'owned'] = team
+        df_updated.at[player, 'sold_$'] = dollar_amount
+        return df_updated
+    else:
+        raise InvalidTransactionException(
+            f"Invalid transaction -- player: {player}, team: {team}, dollar amount: {dollar_amount}"
+        )
 
 
 def log_transaction(transaction_file_path, player, team, dollar_amount):
@@ -150,7 +163,8 @@ def log_transaction(transaction_file_path, player, team, dollar_amount):
         with open(transaction_file_path, 'r') as transaction_file:
             j = json.load(transaction_file)
 
-    current_transaction = {'player': player, 'team': team, 'dollar_amount': dollar_amount}
+    current_transaction = {'player': player,
+                           'team': team, 'dollar_amount': dollar_amount}
     j['transactions'].append(current_transaction)
 
     with open(transaction_file_path, 'w') as transaction_file:
@@ -158,8 +172,10 @@ def log_transaction(transaction_file_path, player, team, dollar_amount):
 
 
 def calculate_updated_values(df):
-    total_remaining_value = float(df.loc[(df['rank'] <= total_players) & (df['owned'] == 'Avail'), 'calculated_value'].sum())
-    new_dollar_per_value_point = (league_dollars_total - float(df['sold_$'].sum())) / total_remaining_value
+    total_remaining_value = float(df.loc[(df['rank'] <= total_players) & (
+        df['owned'] == 'Avail'), 'calculated_value'].sum())
+    new_dollar_per_value_point = (
+        league_dollars_total - float(df['sold_$'].sum())) / total_remaining_value
     df['new_$'] = new_dollar_per_value_point * df['calculated_value']
     df['bargain_$'] = df['calculated_$'] - df['new_$']
     return df
@@ -169,7 +185,8 @@ def calculate_current_team_values(df, teams):
     """Returns a dictionary with all teams and their total value"""
     team_values = {}
     for t in teams:
-        value = round(float(df.loc[(df['owned'] == t), ['calculated_value']].sum()), 2)
+        value = round(
+            float(df.loc[(df['owned'] == t), ['calculated_value']].sum()), 2)
         team_values[t] = value
 
     return team_values
@@ -193,11 +210,13 @@ def count_drafted_players(df, teams):
         player_count[t] = int(df.loc[(df['owned'] == t), 'g'].count())
     return player_count
 
+
 def dollar_player_average_remaining(df, teams):
     """Returns a dictionary with how much each team can spend on avg for the number of players they have remaining"""
     average_remaining = {}
     for t in teams:
-        average_remaining[t] = round((team_budget - int(df.loc[(df['owned'] == t), ['sold_$']].sum())) /(roster_size - int(df.loc[(df['owned'] == t), 'g'].count())), 2)
+        average_remaining[t] = round((team_budget - int(df.loc[(df['owned'] == t), ['sold_$']].sum())) / (
+            roster_size - int(df.loc[(df['owned'] == t), 'g'].count())), 2)
     return average_remaining
 
 
@@ -214,7 +233,8 @@ def replay_tranactions(df, transactions_file_path='transactions.json'):
         raise NoTransactionFileExists
 
     for t in transactions['transactions']:
-        df = transaction(df, t['player'], t['team'], t['dollar_amount'], write_to_log=False)
+        df = transaction(df, t['player'], t['team'],
+                         t['dollar_amount'], write_to_log=False)
     return df
 
 

@@ -239,6 +239,66 @@
             "player": "Mike Conley",
             "team": "Team 3",
             "dollar_amount": 25
+        },
+        {
+            "player": "",
+            "team": "",
+            "dollar_amount": ""
+        },
+        {
+            "player": null,
+            "team": null,
+            "dollar_amount": null
+        },
+        {
+            "player": "",
+            "team": "",
+            "dollar_amount": ""
+        },
+        {
+            "player": null,
+            "team": null,
+            "dollar_amount": null
+        },
+        {
+            "player": "",
+            "team": "",
+            "dollar_amount": ""
+        },
+        {
+            "player": null,
+            "team": null,
+            "dollar_amount": null
+        },
+        {
+            "player": "",
+            "team": "",
+            "dollar_amount": ""
+        },
+        {
+            "player": null,
+            "team": null,
+            "dollar_amount": null
+        },
+        {
+            "player": "",
+            "team": "",
+            "dollar_amount": ""
+        },
+        {
+            "player": null,
+            "team": null,
+            "dollar_amount": null
+        },
+        {
+            "player": "",
+            "team": "",
+            "dollar_amount": ""
+        },
+        {
+            "player": null,
+            "team": null,
+            "dollar_amount": null
         }
     ]
 }
