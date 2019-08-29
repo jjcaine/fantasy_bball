@@ -5,8 +5,10 @@ import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import pytest
+import pandas as pd
+from pandas.util.testing import assert_frame_equal
 
-from fantasy.draft.utils import log_transaction
+from fantasy.draft.utils import log_transaction, transaction
 from fantasy.draft.exceptions import InvalidTransactionException
 
 
@@ -28,7 +30,5 @@ def test_log_transaction(tmp_path):
 
 @pytest.mark.parametrize("player,team,dollar_amount", [('', '', ''), (None, None, None)])
 def test_log_invalid_transaction(tmp_path, player, team, dollar_amount):
-    transaction_file_path = os.path.join(tmp_path, 'test_file1.json')
-
     with pytest.raises(InvalidTransactionException):
-        assert log_transaction(transaction_file_path, player, team, dollar_amount)
+        assert assert_frame_equal(transaction(pd.DataFrame(), player, team, dollar_amount), pd.DataFrame())
