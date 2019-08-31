@@ -2,6 +2,7 @@ import os
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 from .utils import get_data, compute_value, get_pickled_df, initialize_draft_dataframe, league_teams, transaction, \
@@ -171,12 +172,14 @@ def replay(request):
     messages.success(request, "Successfully replayed transactions from log")
     return redirect('draft_entry')
 
-
+@login_required()
 def upload_projections(request):
     if request.method == 'POST':
         form = UploadProjectionsForm(request.POST, request.FILES)
         if form.is_valid():
-            with open(os.path.join(settings.MEDIA_ROOT, request.FILES['file'].name), 'wb') as destination:
+            projection = Projection.new_projection(request.user)
+            projection_file_extension = os.path.splitext(request.FILES['file'].name)[1]
+            with open(os.path.join(settings.MEDIA_ROOT, f"{projection.id}{projection_file_extension}"), 'wb') as destination:
                 for chunk in request.FILES['file'].chunks():
                     destination.write(chunk)
             return redirect('upload_projections')
