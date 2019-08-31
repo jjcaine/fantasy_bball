@@ -32,3 +32,4 @@ def test_log_transaction(tmp_path):
 def test_log_invalid_transaction(tmp_path, player, team, dollar_amount):
     with pytest.raises(InvalidTransactionException):
         assert assert_frame_equal(transaction(pd.DataFrame(), player, team, dollar_amount), pd.DataFrame())
+
