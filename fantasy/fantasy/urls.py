@@ -29,7 +29,9 @@ urlpatterns = [
     path('top_available', draft_views.top_available_players_board, name='top_available'),
     path('invalidate_data_frame', draft_views.invalidate_draft_frame, name='invalidate_data_frame'),
     path('replay', draft_views.replay, name='replay'),
-    path('upload_projections', draft_views.upload_projections, name='upload_projections')
+    path('upload_projections/<int:draft_id>', draft_views.upload_projections, name='upload_projections'),
+    path('create_draft', draft_views.create_draft, name='create_draft'),
+    path('draft_configuration_home/<int:draft_id>', draft_views.draft_configuration_home, name='draft_configuration_home'),
 ]
 
 if settings.DEBUG:

@@ -3,12 +3,12 @@
 
 {% block content %}
 
-<h3>{{ draft.draft_name }} Projections Upload</h3>
-<form method="POST" enctype="multipart/form-data">
+<h3>Create Draft</h3>
+<form method="POST">
     {% csrf_token %}
     {{ form|crispy }}
     <div class="form-group">
-        <button class="btn btn-outline-info" type="submit">Upload</button>
+        <button class="btn btn-outline-info" type="submit">Create</button>
     </div>
 </form>
 {% endblock content %}

@@ -9,8 +9,8 @@ from .utils import get_data, compute_value, get_pickled_df, initialize_draft_dat
     calculate_updated_values, replay_tranactions, calculate_current_team_values, calculate_team_spending, \
     count_drafted_players, dollar_player_average_remaining, top_available_players
 from .exceptions import DraftNotInitializedException, DraftPickleException, InvalidTransactionException, NoTransactionFileExists
-from .forms import DraftEntryForm, UploadProjectionsForm
-from .models import Projection
+from .forms import DraftEntryForm, UploadProjectionsForm, CreateDraftForm, DraftConfigurationForm
+from .models import Projection, Draft, ScoringCategory
 
 pickle_path = './df_value.pkl'
 projections_path = '/Users/jjcaine/Downloads/BBM_projections_combined.xls'
@@ -21,6 +21,7 @@ def index(request):
     return render(request, 'index.html')
 
 
+@login_required()
 def value_dashboard(request):
     """View to display all teams and their current drafted players, team value,
     current spending, amount remaining, and average spending remaining"""
@@ -44,6 +45,7 @@ def value_dashboard(request):
     })
 
 
+@login_required()
 def draft_entry(request):
     try:
         df_draft = get_pickled_df(pickle_path)
@@ -90,6 +92,7 @@ def draft_entry(request):
     })
 
 
+@login_required()
 def draft_board(request):
     df_draft = None
 
@@ -133,6 +136,7 @@ def draft_board(request):
                   )
 
 
+@login_required()
 def top_available_players_board(request):
     df_draft = get_pickled_df(pickle_path)
     df_top_available_players = top_available_players(df_draft, 25)
@@ -144,6 +148,7 @@ def top_available_players_board(request):
     })
 
 
+@login_required()
 def invalidate_draft_frame(request):
     try:
         os.remove(pickle_path)
@@ -159,6 +164,7 @@ def invalidate_draft_frame(request):
     return redirect('draft_entry')
 
 
+@login_required()
 def replay(request):
     df = get_pickled_df(pickle_path)
 
@@ -172,12 +178,14 @@ def replay(request):
     messages.success(request, "Successfully replayed transactions from log")
     return redirect('draft_entry')
 
+
 @login_required()
-def upload_projections(request):
+def upload_projections(request, draft_id):
+    draft = Draft.objects.filter(id=draft_id).first()
     if request.method == 'POST':
         form = UploadProjectionsForm(request.POST, request.FILES)
         if form.is_valid():
-            projection = Projection.new_projection(request.user)
+            projection = Projection.new_projection(request.user, draft)
             projection_file_extension = os.path.splitext(request.FILES['file'].name)[1]
             with open(os.path.join(settings.MEDIA_ROOT, f"{projection.id}{projection_file_extension}"), 'wb') as destination:
                 for chunk in request.FILES['file'].chunks():
@@ -185,4 +193,26 @@ def upload_projections(request):
             return redirect('upload_projections')
     else:
         form = UploadProjectionsForm()
-    return render(request, 'upload_projections.html', {'form': form})
+    return render(request, 'upload_projections.html', {'form': form, 'draft': draft})
+
+
+@login_required()
+def create_draft(request):
+    if request.method == 'POST':
+        form = DraftConfigurationForm(request.POST)
+        if form.is_valid():
+            draft = form.save()
+            return redirect('upload_projections', draft_id=draft.id)
+    form = DraftConfigurationForm()
+    return render(request, 'create_draft.html', {'form': form})
+
+
+@login_required()
+def draft_configuration_home(request, draft_id):
+    draft = Draft.objects.filter(id=draft_id).first()
+    return render(request, 'draft_configuration_home.html', {'draft_name': draft.draft_name})
+
+
+@login_required()
+def configure_projection_columns():
+    return

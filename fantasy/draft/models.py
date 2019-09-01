@@ -3,23 +3,60 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
-class Projection(models.Model):
-    upload_date = models.DateTimeField(default=timezone.now)
-    current_projection = models.BooleanField()
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+class ScoringCategory(models.Model):
+    category_name = models.CharField(max_length=50)
+    category_abbreviation = models.CharField(max_length=5)
+    weight = models.DecimalField(max_digits=3, decimal_places=2, default=1.00)
 
-    @classmethod
-    def new_projection(cls, owner):
-        Projection.invalidate_owner_projection(owner)
-        projection = Projection.objects.create(owner=owner, current_projection=True)
-        projection.save()
-        return projection
-
-
+    def __str__(self):
+        return self.category_name
 
     @staticmethod
-    def invalidate_owner_projection(owner):
-        Projection.objects.filter(owner=owner).update(current_projection=False)
+    def insert_standard_categories():
+        standard_categories = [
+            ('Adjusted Field Goal %', 'adjfg%', 1.00),
+            ('Free Throw %', 'ft%', 1.00),
+            ('Three Pointers Made', '3/g', 1.00),
+            ('Three Point %', '3%', 1.00),
+            ('Offensive Rebounds', 'or/g', 1.00),
+            ('Defensive Rebounds', 'dr/g', 1.00),
+            ('Assists', 'a/g', 1.00),
+            ('Steals', 's/g', 1.00),
+            ('Three Pointers Made', 'b/g', 1.00),
+            ('Turnovers', 'to/g', -1.00),
+            ('Points', 'p/g', 1.00)
+        ]
+
+        for category in standard_categories:
+            ScoringCategory.objects.create(category_name=category[0],
+                                           category_abbreviation=category[1],
+                                           weight=category[2]
+                                           )
+
+
+class Draft(models.Model):
+    draft_name = models.CharField(max_length=100)
+    draft_owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    scoring_categories = models.ManyToManyField(ScoringCategory, blank=True)
+
+    @classmethod
+    def new_draft(cls, draft_name, owner):
+        return Draft.objects.create(draft_name=draft_name, draft_owner=owner)
+
+    def __str__(self):
+        return self.draft_name
+
+
+class Projection(models.Model):
+    upload_date = models.DateTimeField(default=timezone.now)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    draft = models.ForeignKey(Draft, on_delete=models.CASCADE)
+
+    @classmethod
+    def new_projection(cls, owner, draft):
+        projection = Projection.objects.create(draft=draft, owner=owner, current_projection=True)
+        projection.save()
+        return projection
 
     def __str__(self):
         return self.owner.username
