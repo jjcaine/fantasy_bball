@@ -22,7 +22,7 @@ class ScoringCategory(models.Model):
             ('Defensive Rebounds', 'dr/g', 1.00),
             ('Assists', 'a/g', 1.00),
             ('Steals', 's/g', 1.00),
-            ('Three Pointers Made', 'b/g', 1.00),
+            ('Blocks', 'b/g', 1.00),
             ('Turnovers', 'to/g', -1.00),
             ('Points', 'p/g', 1.00)
         ]
@@ -54,9 +54,18 @@ class Projection(models.Model):
 
     @classmethod
     def new_projection(cls, owner, draft):
-        projection = Projection.objects.create(draft=draft, owner=owner, current_projection=True)
+        projection = Projection.objects.create(draft=draft, owner=owner)
         projection.save()
         return projection
 
     def __str__(self):
         return self.owner.username
+
+
+class ProjectionColumns(models.Model):
+    column_name = models.CharField(max_length=10)
+    projection = models.ForeignKey(Projection, on_delete=models.CASCADE)
+    ## TODO: This is wrong on the form. We should only show the scoring categories that are applicable to this draft
+    mapped_scoring_category = models.ForeignKey(ScoringCategory, blank=True, null=True, on_delete=models.CASCADE)
+    informational = models.BooleanField(default=False, blank=True)
+    discard = models.BooleanField(default=False, blank=True)

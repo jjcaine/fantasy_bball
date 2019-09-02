@@ -1,16 +1,20 @@
 import os
 
+import pandas as pd
+
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django import forms
 
 from .utils import get_data, compute_value, get_pickled_df, initialize_draft_dataframe, league_teams, transaction, \
     calculate_updated_values, replay_tranactions, calculate_current_team_values, calculate_team_spending, \
     count_drafted_players, dollar_player_average_remaining, top_available_players
 from .exceptions import DraftNotInitializedException, DraftPickleException, InvalidTransactionException, NoTransactionFileExists
-from .forms import DraftEntryForm, UploadProjectionsForm, CreateDraftForm, DraftConfigurationForm
-from .models import Projection, Draft, ScoringCategory
+from .forms import DraftEntryForm, UploadProjectionsForm, CreateDraftForm, DraftConfigurationForm, \
+    BaseProjectionColumnsFormset, ProjectionColumnsConfigurationForm
+from .models import Projection, Draft, ScoringCategory, ProjectionColumns
 
 pickle_path = './df_value.pkl'
 projections_path = '/Users/jjcaine/Downloads/BBM_projections_combined.xls'
@@ -187,10 +191,17 @@ def upload_projections(request, draft_id):
         if form.is_valid():
             projection = Projection.new_projection(request.user, draft)
             projection_file_extension = os.path.splitext(request.FILES['file'].name)[1]
-            with open(os.path.join(settings.MEDIA_ROOT, f"{projection.id}{projection_file_extension}"), 'wb') as destination:
+            projection_file_name = projection.id + projection_file_extension
+            with open(os.path.join(settings.MEDIA_ROOT, f"{projection_file_name}"), 'wb') as destination:
                 for chunk in request.FILES['file'].chunks():
                     destination.write(chunk)
-            return redirect('upload_projections')
+
+            projection = Projection.objects.filter(draft_id=draft_id).first()
+            projections_path = os.path.join(settings.MEDIA_ROOT, f"{projection_file_name}")
+            df = pd.read_excel(projections_path, dtype=object)
+            for column in df.columns:
+                ProjectionColumns.objects.create(column_name=column, projection=projection).save()
+            return redirect('configure_projection_columns', draft_id=draft_id)
     else:
         form = UploadProjectionsForm()
     return render(request, 'upload_projections.html', {'form': form, 'draft': draft})
@@ -214,5 +225,23 @@ def draft_configuration_home(request, draft_id):
 
 
 @login_required()
-def configure_projection_columns():
-    return
+def configure_projection_columns(request, draft_id):
+    projection = Projection.objects.filter(draft_id=draft_id).first()
+    ProjectionColumnsFormset = forms.modelformset_factory(
+        ProjectionColumns,
+        exclude=('projection',),
+        widgets={
+            'informational': forms.widgets.CheckboxInput(),
+            'discard': forms.widgets.CheckboxInput()
+        }
+    )
+
+    if request.method == 'POST':
+        formset = ProjectionColumnsFormset(request.POST, queryset=ProjectionColumns.objects.filter(projection_id=projection.id))
+        if formset.is_valid():
+            formset.save()
+        else:
+            return render(request, 'configure_projection_columns.html', {'formset': formset})
+        redirect('configure_projection_columns', draft_id=draft_id)
+    formset = ProjectionColumnsFormset(queryset=ProjectionColumns.objects.filter(projection_id=projection.id))
+    return render(request, 'configure_projection_columns.html', {'formset': formset})

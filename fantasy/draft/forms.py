@@ -1,5 +1,5 @@
 from django import forms
-from .models import Draft
+from .models import Draft, ProjectionColumns
 
 class DraftEntryForm(forms.Form):
     player = forms.CharField(widget=forms.TextInput(attrs={'id': 'player-dropdown', 'placeholder': 'Player', 'autocomplete': 'off'}))
@@ -23,3 +23,16 @@ class DraftConfigurationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(DraftConfigurationForm, self).__init__(*args, **kwargs)
         self.fields['scoring_categories'].widget = forms.widgets.CheckboxSelectMultiple()
+
+
+class BaseProjectionColumnsFormset(forms.BaseModelFormSet):
+    def __init__(self, *args, **kwargs):
+        projection_id = kwargs.pop('projection_id')
+        super().__init__(*args, **kwargs)
+        self.queryset = ProjectionColumns.objects.filter(id=projection_id)
+
+
+class ProjectionColumnsConfigurationForm(forms.ModelForm):
+    class Meta:
+        model = ProjectionColumns
+        fields = ['column_name', 'mapped_scoring_category', 'informational', 'discard']

@@ -32,6 +32,7 @@ urlpatterns = [
     path('upload_projections/<int:draft_id>', draft_views.upload_projections, name='upload_projections'),
     path('create_draft', draft_views.create_draft, name='create_draft'),
     path('draft_configuration_home/<int:draft_id>', draft_views.draft_configuration_home, name='draft_configuration_home'),
+    path('configure_projection_columns/<int:draft_id>', draft_views.configure_projection_columns, name='configure_projection_columns'),
 ]
 
 if settings.DEBUG:
