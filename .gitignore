@@ -10,4 +10,8 @@ fantasy/draft/__pycache__
 fantasy/fantasy/__pycache__
 fantasy/__pycache__
 tests/__pycache__
-*.pyc
+fantasy/draft/migrations/__pycache__
+fantasy/draft/tests/__pycache__
+
+*.pycfantasy/db.sqlite3
+fantasy/media/*
