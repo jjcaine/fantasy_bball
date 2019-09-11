@@ -65,7 +65,6 @@ class Projection(models.Model):
 class ProjectionColumns(models.Model):
     column_name = models.CharField(max_length=10)
     projection = models.ForeignKey(Projection, on_delete=models.CASCADE)
-    ## TODO: This is wrong on the form. We should only show the scoring categories that are applicable to this draft
     mapped_scoring_category = models.ForeignKey(ScoringCategory, blank=True, null=True, on_delete=models.CASCADE)
     informational = models.BooleanField(default=False, blank=True)
     discard = models.BooleanField(default=False, blank=True)

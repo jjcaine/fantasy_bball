@@ -191,7 +191,7 @@ def upload_projections(request, draft_id):
         if form.is_valid():
             projection = Projection.new_projection(request.user, draft)
             projection_file_extension = os.path.splitext(request.FILES['file'].name)[1]
-            projection_file_name = projection.id + projection_file_extension
+            projection_file_name = str(projection.id) + projection_file_extension
             with open(os.path.join(settings.MEDIA_ROOT, f"{projection_file_name}"), 'wb') as destination:
                 for chunk in request.FILES['file'].chunks():
                     destination.write(chunk)
@@ -233,15 +233,21 @@ def configure_projection_columns(request, draft_id):
         widgets={
             'informational': forms.widgets.CheckboxInput(),
             'discard': forms.widgets.CheckboxInput()
-        }
+        },
+        extra=0
     )
 
     if request.method == 'POST':
         formset = ProjectionColumnsFormset(request.POST, queryset=ProjectionColumns.objects.filter(projection_id=projection.id))
+        for form in formset:
+            form.fields['mapped_scoring_category'].queryset = Draft.objects.get(id=draft_id).scoring_categories.all()
         if formset.is_valid():
             formset.save()
         else:
             return render(request, 'configure_projection_columns.html', {'formset': formset})
         redirect('configure_projection_columns', draft_id=draft_id)
+
     formset = ProjectionColumnsFormset(queryset=ProjectionColumns.objects.filter(projection_id=projection.id))
+    for form in formset:
+        form.fields['mapped_scoring_category'].queryset = Draft.objects.get(id=draft_id).scoring_categories.all()
     return render(request, 'configure_projection_columns.html', {'formset': formset})
