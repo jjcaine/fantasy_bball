@@ -17,7 +17,7 @@ from .forms import DraftEntryForm, UploadProjectionsForm, CreateDraftForm, Draft
 from .models import Projection, Draft, ScoringCategory, ProjectionColumns
 
 pickle_path = './df_value.pkl'
-projections_path = '/Users/jjcaine/Downloads/BBM_projections_combined.xls'
+projections_path = '/Users/jjcaine/Downloads/BBM_Projections.xls'
 transactions_file = 'transactions.json'
 
 
@@ -251,3 +251,13 @@ def configure_projection_columns(request, draft_id):
     for form in formset:
         form.fields['mapped_scoring_category'].queryset = Draft.objects.get(id=draft_id).scoring_categories.all()
     return render(request, 'configure_projection_columns.html', {'formset': formset})
+
+
+@login_required()
+def clear_log(request):
+    try:
+        os.remove(transactions_file)
+    except FileNotFoundError:
+        messages.warning(request, "No log file exists to clear")
+
+    return redirect('draft_entry')

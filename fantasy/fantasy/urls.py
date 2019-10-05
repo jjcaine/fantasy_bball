@@ -30,6 +30,7 @@ urlpatterns = [
     path('value_dashboard', draft_views.value_dashboard, name='value_dashboard'),
     path('top_available', draft_views.top_available_players_board, name='top_available'),
     path('invalidate_data_frame', draft_views.invalidate_draft_frame, name='invalidate_data_frame'),
+    path('clear_log', draft_views.clear_log, name='clear_log'),
     path('replay', draft_views.replay, name='replay'),
     path('upload_projections/<int:draft_id>', draft_views.upload_projections, name='upload_projections'),
     path('create_draft', draft_views.create_draft, name='create_draft'),
