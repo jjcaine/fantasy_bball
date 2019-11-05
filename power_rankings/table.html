@@ -1,0 +1,765 @@
+<div>
+    <div class='row justify-content-md-left'>
+        <div class='col-md-auto'>
+            <div class='mt-4 ml-3'>
+                <div class='control-holder'><a href="#" class='tooltip-control' data-placement="top"
+                                               data-toggle="tooltip"
+                                               title="Josh Projections is managed by Josh Lloyd and Kyle Projections by Kyle McKeown. You can choose Combined to view the average of the two."><i
+                        class="fas fa-flask"></i></a>&#160;<select name='ProjectionSourceControl'
+                                                                   id='ProjectionSourceControl'
+                                                                   onchange="__doPostBack('ProjectionSourceControl','')"
+                                                                   language="javascript" class='' length=10>
+                    <option value='17329'>Josh Projections</option>
+                    <option value='21796'>Kyle Projections</option>
+                    <option selected='selected' value='300000'>Combined</option>
+                </select></div>
+            </div>
+            <div class='container mt-3 clear-both ml-0 '><h3 class='mt-3'>Remaining Standings</h3>
+                <table class='datatable w3-hoverable' cellpadding='0' cellspacing='0'>
+                    <thead>
+                    <tr>
+                        <th class='nowrap tdl'><a id='SortFullName' class=''
+                                                  href='javascript:__doPostBack("SortFullName","")'>Name</a></th>
+                        <th class='nowrap '>Now</th>
+                        <th class='nowrap '>Left</th>
+                        <th class='nowrap '><a id='SortH2HWinningPercentage' class='' class="tooltip-control"
+                                               data-placement="top" data-toggle="tooltip"
+                                               title="Projected H2H Winning Percentage"
+                                               href='javascript:__doPostBack("SortH2HWinningPercentage","")'>Win%</a>
+                        </th>
+                        <th class='nowrap '>H2H</th>
+                        <th class='nowrap tdr'><a id='SortC_20' class=''
+                                                  href='javascript:__doPostBack("SortC_20","")'>g</a></th>
+                        <th class='nowrap tdr'><a id='SortC_1' class=''
+                                                  href='javascript:__doPostBack("SortC_1","")'>pts</a></th>
+                        <th class='nowrap tdr'><a id='SortC_2' class=''
+                                                  href='javascript:__doPostBack("SortC_2","")'>3</a></th>
+                        <th class='nowrap tdr'><a id='SortC_4' class=''
+                                                  href='javascript:__doPostBack("SortC_4","")'>ast</a></th>
+                        <th class='nowrap tdr'><a id='SortC_5' class=''
+                                                  href='javascript:__doPostBack("SortC_5","")'>stl</a></th>
+                        <th class='nowrap tdr'><a id='SortC_6' class=''
+                                                  href='javascript:__doPostBack("SortC_6","")'>blk</a></th>
+                        <th class='nowrap tdr'><a id='SortC_8' class=''
+                                                  href='javascript:__doPostBack("SortC_8","")'>ft%</a></th>
+                        <th class='nowrap tdr'><a id='SortC_9' class=''
+                                                  href='javascript:__doPostBack("SortC_9","")'>dr</a></th>
+                        <th class='nowrap tdr'><a id='SortC_10' class='' href='javascript:__doPostBack("SortC_10","")'>or</a>
+                        </th>
+                        <th class='nowrap tdr'><a id='SortC_25' class='' href='javascript:__doPostBack("SortC_25","")'>to</a>
+                        </th>
+                        <th class='nowrap tdr'><a id='SortC_32' class='' href='javascript:__doPostBack("SortC_32","")'>3%</a>
+                        </th>
+                        <th class='nowrap tdr'><a id='SortC_34' class='' href='javascript:__doPostBack("SortC_34","")'>adjfg%</a>
+                        </th>
+                        <th class='nowrap '>Players</th>
+                    </tr>
+                    </thead>
+                    <tr class='summaryTD'>
+                        <td nowrap class='tdl'>Local Hero Who Didnt Eat Poop</td>
+                        <td style='background-color:#ffffff;' class='tdr'>0</td>
+                        <td style='background-color:#aeffae;' class='tdr'>693</td>
+                        <td style='background-color:#9bff9b;'>0.758</td>
+                        <td nowrap><span style='background-color:#ffd6d6;padding: 1px 3px 1px 3px;' nowrap>4-7-0</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#ffd4d4;padding: 1px 3px 1px 3px;' nowrap>p</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ff9696;padding: 1px 3px 1px 3px;' nowrap>3</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#c2ffc2;padding: 1px 3px 1px 3px;'>a</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ffa7a7;padding: 1px 3px 1px 3px;' nowrap>s</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ffdcdc;padding: 1px 3px 1px 3px;' nowrap>b</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ffe0e0;padding: 1px 3px 1px 3px;' nowrap>ft%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#f5fff5;padding: 1px 3px 1px 3px;'>dr</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#b6ffb6;padding: 1px 3px 1px 3px;'>or</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ffffff;padding: 1px 3px 1px 3px;'>to</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ff9999;padding: 1px 3px 1px 3px;' nowrap>3%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#fff5f5;padding: 1px 3px 1px 3px;' nowrap>adjfg%</span></td>
+                        <td class='tdr'>693</td>
+                        <td style='background-color:#fff4f4;' nowrap class='tdr'>9,017</td>
+                        <td style='background-color:#acffac;' class='tdr'>1,258</td>
+                        <td style='background-color:#ffb6b6;' nowrap class='tdr'>1,654</td>
+                        <td style='background-color:#d1ffd1;' class='tdr'>661</td>
+                        <td style='background-color:#a1ffa1;' class='tdr'>610</td>
+                        <td style='background-color:#b7ffb7;' class='tdr'>.806</td>
+                        <td style='background-color:#c3ffc3;' class='tdr'>3,132</td>
+                        <td style='background-color:#ffeeee;' nowrap class='tdr'>789</td>
+                        <td style='background-color:#c5ffc5;' class='tdr'>963</td>
+                        <td style='background-color:#97ff97;' class='tdr'>.387</td>
+                        <td style='background-color:#b0ffb0;' class='tdr'>.551</td>
+                        <td class='tdc nowrap'><a href="#" class='tooltip-control' data-placement="top"
+                                                  data-toggle="tooltip"
+                                                  title=" Turner 100%, George 100%, Whiteside 100%, Tucker 100%, VanVleet 100%, Lopez 100%, Bertans 100%, Harris 100%, Kennard 100%, Murray 100%, Anunoby 100%, Lamb 100%, Olynyk 100%, Poeltl 100%, O'Neale 17%"><i
+                                class="fal fa-users"></i></a></td>
+                    </tr>
+                    <tr class='summaryTD'>
+                        <td nowrap class='tdl'><span title='Your Team' alt='Your Team' style='color: green;'><i
+                                class="fas fa-arrow-alt-right"></i></span> Pipe Dreams
+                        </td>
+                        <td style='background-color:#ffffff;' class='tdr'>0</td>
+                        <td style='background-color:#ffe0e0;' nowrap class='tdr'>640</td>
+                        <td style='background-color:#beffbe;'>0.667</td>
+                        <td nowrap></td>
+                        <td class='tdr'>640</td>
+                        <td style='background-color:#ffc9c9;' nowrap class='tdr'>8,273</td>
+                        <td style='background-color:#ffe9e9;' nowrap class='tdr'>858</td>
+                        <td style='background-color:#fff3f3;' nowrap class='tdr'>1,942</td>
+                        <td style='background-color:#ffd4d4;' nowrap class='tdr'>559</td>
+                        <td style='background-color:#c4ffc4;' class='tdr'>539</td>
+                        <td style='background-color:#d5ffd5;' class='tdr'>.795</td>
+                        <td style='background-color:#b8ffb8;' class='tdr'>3,182</td>
+                        <td style='background-color:#c8ffc8;' class='tdr'>939</td>
+                        <td style='background-color:#c5ffc5;' class='tdr'>962</td>
+                        <td style='background-color:#fdfffd;' class='tdr'>.363</td>
+                        <td style='background-color:#baffba;' class='tdr'>.549</td>
+                        <td class='tdc nowrap'><a href="#" class='tooltip-control' data-placement="top"
+                                                  data-toggle="tooltip"
+                                                  title=" Brogdon 100%, Collins 100%, Covington 100%, Bryant 100%, Valanciunas 100%, Richardson 100%, Leonard 100%, Zeller 100%, Bledsoe 100%, Kleber 100%, Beverley 100%, Gasol 100%, Nurkic 100%, Barton 100%, Bitadze 98%"><i
+                                class="fal fa-users"></i></a></td>
+                    </tr>
+                    <tr class='summaryTD'>
+                        <td nowrap class='tdl'>NOT a g/NBA Deep State Operative</td>
+                        <td style='background-color:#ffffff;' class='tdr'>0</td>
+                        <td style='background-color:#a7ffa7;' class='tdr'>696</td>
+                        <td style='background-color:#cfffcf;'>0.624</td>
+                        <td nowrap><span style='background-color:#d6ffd6;padding: 1px 3px 1px 3px;'>7-4-0</span> <span
+                                width='50px' alt='' title='' style='background-color:#ff6a6a;padding: 1px 3px 1px 3px;'
+                                nowrap>p</span> <span width='50px' alt='' title=''
+                                                      style='background-color:#ffbbbb;padding: 1px 3px 1px 3px;' nowrap>3</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#ffc6c6;padding: 1px 3px 1px 3px;' nowrap>a</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ff9191;padding: 1px 3px 1px 3px;' nowrap>s</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#cdffcd;padding: 1px 3px 1px 3px;'>b</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#fafffa;padding: 1px 3px 1px 3px;'>ft%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#9cff9c;padding: 1px 3px 1px 3px;'>dr</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#d2ffd2;padding: 1px 3px 1px 3px;'>or</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#abffab;padding: 1px 3px 1px 3px;'>to</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#fafffa;padding: 1px 3px 1px 3px;'>3%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#9dff9d;padding: 1px 3px 1px 3px;'>adjfg%</span></td>
+                        <td class='tdr'>696</td>
+                        <td style='background-color:#a0ffa0;' class='tdr'>10,859</td>
+                        <td style='background-color:#d2ffd2;' class='tdr'>1,116</td>
+                        <td style='background-color:#d3ffd3;' class='tdr'>2,211</td>
+                        <td style='background-color:#bbffbb;' class='tdr'>687</td>
+                        <td style='background-color:#f7fff7;' class='tdr'>436</td>
+                        <td style='background-color:#daffda;' class='tdr'>.793</td>
+                        <td style='background-color:#ffe2e2;' nowrap class='tdr'>2,705</td>
+                        <td style='background-color:#f5fff5;' class='tdr'>845</td>
+                        <td style='background-color:#ffe5e5;' nowrap class='tdr'>1,177</td>
+                        <td style='background-color:#fffcfc;' nowrap class='tdr'>.362</td>
+                        <td style='background-color:#ffe3e3;' nowrap class='tdr'>.529</td>
+                        <td class='tdc nowrap'><a href="#" class='tooltip-control' data-placement="top"
+                                                  data-toggle="tooltip"
+                                                  title=" Tatum 100%, Mitchell 100%, Aldridge 100%, Powell 100%, Bridges 100%, Russell 100%, Rozier 100%, Oubre Jr. 100%, Gordon 100%, Satoransky 100%, Theis 100%, Anderson 100%, Beasley 100%, Clarkson 100%"><i
+                                class="fal fa-users"></i></a></td>
+                    </tr>
+                    <tr class='summaryTD'>
+                        <td nowrap class='tdl'>One of Each of Your Sauces</td>
+                        <td style='background-color:#ffffff;' class='tdr'>0</td>
+                        <td style='background-color:#deffde;' class='tdr'>670</td>
+                        <td style='background-color:#e2ffe2;'>0.576</td>
+                        <td nowrap><span style='background-color:#fff1f1;padding: 1px 3px 1px 3px;' nowrap>5-6-0</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#ffecec;padding: 1px 3px 1px 3px;' nowrap>p</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ffe4e4;padding: 1px 3px 1px 3px;' nowrap>3</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#b0ffb0;padding: 1px 3px 1px 3px;'>a</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ffc3c3;padding: 1px 3px 1px 3px;' nowrap>s</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#e9ffe9;padding: 1px 3px 1px 3px;'>b</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#d9ffd9;padding: 1px 3px 1px 3px;'>ft%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#c5ffc5;padding: 1px 3px 1px 3px;'>dr</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#c5ffc5;padding: 1px 3px 1px 3px;'>or</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ffdcdc;padding: 1px 3px 1px 3px;' nowrap>to</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ffb2b2;padding: 1px 3px 1px 3px;' nowrap>3%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ffd9d9;padding: 1px 3px 1px 3px;' nowrap>adjfg%</span></td>
+                        <td class='tdr'>671</td>
+                        <td style='background-color:#ffdcdc;' nowrap class='tdr'>8,596</td>
+                        <td style='background-color:#fafffa;' class='tdr'>961</td>
+                        <td style='background-color:#ffa3a3;' nowrap class='tdr'>1,566</td>
+                        <td style='background-color:#edffed;' class='tdr'>629</td>
+                        <td style='background-color:#dbffdb;' class='tdr'>493</td>
+                        <td style='background-color:#fcfffc;' class='tdr'>.781</td>
+                        <td style='background-color:#f3fff3;' class='tdr'>2,902</td>
+                        <td style='background-color:#fffcfc;' nowrap class='tdr'>819</td>
+                        <td style='background-color:#a2ffa2;' class='tdr'>871</td>
+                        <td style='background-color:#b0ffb0;' class='tdr'>.381</td>
+                        <td style='background-color:#94ff94;' class='tdr'>.556</td>
+                        <td class='tdc nowrap'><a href="#" class='tooltip-control' data-placement="top"
+                                                  data-toggle="tooltip"
+                                                  title=" Love 100%, Gallinari 100%, Capela 100%, Robinson 100%, Isaac 100%, Porter 100%, Brown 100%, Huerter 100%, Shamet 100%, White 100%, Bridges 100%, Augustin 100%, Paschall 100%, Harkless 98%"><i
+                                class="fal fa-users"></i></a></td>
+                    </tr>
+                    <tr class='summaryTD'>
+                        <td nowrap class='tdl'>The DisgrAcYTONs</td>
+                        <td style='background-color:#ffffff;' class='tdr'>0</td>
+                        <td style='background-color:#f8fff8;' class='tdr'>658</td>
+                        <td style='background-color:#ebffeb;'>0.552</td>
+                        <td nowrap><span style='background-color:#d6ffd6;padding: 1px 3px 1px 3px;'>7-4-0</span> <span
+                                width='50px' alt='' title='' style='background-color:#ff8989;padding: 1px 3px 1px 3px;'
+                                nowrap>p</span> <span width='50px' alt='' title=''
+                                                      style='background-color:#fffafa;padding: 1px 3px 1px 3px;' nowrap>3</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#ffe0e0;padding: 1px 3px 1px 3px;' nowrap>a</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ffdddd;padding: 1px 3px 1px 3px;' nowrap>s</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#bdffbd;padding: 1px 3px 1px 3px;'>b</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#eaffea;padding: 1px 3px 1px 3px;'>ft%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ceffce;padding: 1px 3px 1px 3px;'>dr</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#fafffa;padding: 1px 3px 1px 3px;'>or</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#a9ffa9;padding: 1px 3px 1px 3px;'>to</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#f9fff9;padding: 1px 3px 1px 3px;'>3%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#a3ffa3;padding: 1px 3px 1px 3px;'>adjfg%</span></td>
+                        <td class='tdr'>658</td>
+                        <td style='background-color:#bfffbf;' class='tdr'>10,318</td>
+                        <td style='background-color:#ffeded;' nowrap class='tdr'>875</td>
+                        <td style='background-color:#ecffec;' class='tdr'>2,089</td>
+                        <td style='background-color:#fff6f6;' nowrap class='tdr'>598</td>
+                        <td style='background-color:#fff8f8;' nowrap class='tdr'>404</td>
+                        <td style='background-color:#eaffea;' class='tdr'>.788</td>
+                        <td style='background-color:#e9ffe9;' class='tdr'>2,948</td>
+                        <td style='background-color:#ccffcc;' class='tdr'>929</td>
+                        <td style='background-color:#ffe3e3;' nowrap class='tdr'>1,183</td>
+                        <td style='background-color:#fffcfc;' nowrap class='tdr'>.362</td>
+                        <td style='background-color:#ffe8e8;' nowrap class='tdr'>.531</td>
+                        <td class='tdc nowrap'><a href="#" class='tooltip-control' data-placement="top"
+                                                  data-toggle="tooltip"
+                                                  title=" Ayton 100%, Vucevic 100%, Walker 100%, Bogdanovic 100%, Booker 100%, Carter Jr. 100%, Bagley III 100%, Baynes 100%, Nunn 100%, Grant 100%, Teague 100%, LeVert 100%, Brown Jr 100%, Okogie 98%"><i
+                                class="fal fa-users"></i></a></td>
+                    </tr>
+                    <tr class='summaryTD'>
+                        <td nowrap class='tdl'>Kawhi Leonards Laugh</td>
+                        <td style='background-color:#ffffff;' class='tdr'>0</td>
+                        <td style='background-color:#b4ffb4;' class='tdr'>690</td>
+                        <td style='background-color:#edffed;'>0.545</td>
+                        <td nowrap><span style='background-color:#d6ffd6;padding: 1px 3px 1px 3px;'>7-4-0</span> <span
+                                width='50px' alt='' title='' style='background-color:#ffadad;padding: 1px 3px 1px 3px;'
+                                nowrap>p</span> <span width='50px' alt='' title=''
+                                                      style='background-color:#ffc2c2;padding: 1px 3px 1px 3px;' nowrap>3</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#e8ffe8;padding: 1px 3px 1px 3px;'>a</span> <span width='50px'
+                                                                                                            alt=''
+                                                                                                            title=''
+                                                                                                            style='background-color:#ffcece;padding: 1px 3px 1px 3px;'
+                                                                                                            nowrap>s</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#92ff92;padding: 1px 3px 1px 3px;'>b</span> <span width='50px'
+                                                                                                            alt=''
+                                                                                                            title=''
+                                                                                                            style='background-color:#ceffce;padding: 1px 3px 1px 3px;'>ft%</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#f3fff3;padding: 1px 3px 1px 3px;'>dr</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#daffda;padding: 1px 3px 1px 3px;'>or</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#c5ffc5;padding: 1px 3px 1px 3px;'>to</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#fff8f8;padding: 1px 3px 1px 3px;' nowrap>3%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#afffaf;padding: 1px 3px 1px 3px;'>adjfg%</span></td>
+                        <td class='tdr'>690</td>
+                        <td style='background-color:#e3ffe3;' class='tdr'>9,701</td>
+                        <td style='background-color:#d8ffd8;' class='tdr'>1,091</td>
+                        <td style='background-color:#ffdcdc;' nowrap class='tdr'>1,834</td>
+                        <td style='background-color:#f9fff9;' class='tdr'>616</td>
+                        <td style='background-color:#ffcccc;' nowrap class='tdr'>316</td>
+                        <td style='background-color:#fff8f8;' nowrap class='tdr'>.778</td>
+                        <td style='background-color:#c4ffc4;' class='tdr'>3,125</td>
+                        <td style='background-color:#edffed;' class='tdr'>862</td>
+                        <td style='background-color:#ffffff;' nowrap class='tdr'>1,112</td>
+                        <td style='background-color:#f6fff6;' class='tdr'>.365</td>
+                        <td style='background-color:#fff4f4;' nowrap class='tdr'>.533</td>
+                        <td class='tdc nowrap'><a href="#" class='tooltip-control' data-placement="top"
+                                                  data-toggle="tooltip"
+                                                  title=" Jokic 100%, Harris 100%, Middleton 100%, McCollum 100%, Thompson 100%, Curry 100%, Morris 100%, Young 100%, Gay 100%, Ross 100%, Len 100%, Crowder 100%, Hezonja 100%, Bembry 100%"><i
+                                class="fal fa-users"></i></a></td>
+                    </tr>
+                    <tr class='summaryTD'>
+                        <td nowrap class='tdl'>Hurt or Injured?</td>
+                        <td style='background-color:#ffffff;' class='tdr'>0</td>
+                        <td style='background-color:#fcfffc;' class='tdr'>656</td>
+                        <td style='background-color:#f2fff2;'>0.533</td>
+                        <td nowrap><span style='background-color:#f1fff1;padding: 1px 3px 1px 3px;'>6-5-0</span> <span
+                                width='50px' alt='' title='' style='background-color:#ffa2a2;padding: 1px 3px 1px 3px;'
+                                nowrap>p</span> <span width='50px' alt='' title=''
+                                                      style='background-color:#ffd0d0;padding: 1px 3px 1px 3px;' nowrap>3</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#fffefe;padding: 1px 3px 1px 3px;' nowrap>a</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ffb5b5;padding: 1px 3px 1px 3px;' nowrap>s</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#99ff99;padding: 1px 3px 1px 3px;'>b</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#caffca;padding: 1px 3px 1px 3px;'>ft%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#87ff87;padding: 1px 3px 1px 3px;'>dr</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#d7ffd7;padding: 1px 3px 1px 3px;'>or</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#b5ffb5;padding: 1px 3px 1px 3px;'>to</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ffe0e0;padding: 1px 3px 1px 3px;' nowrap>3%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#b4ffb4;padding: 1px 3px 1px 3px;'>adjfg%</span></td>
+                        <td class='tdr'>656</td>
+                        <td style='background-color:#d8ffd8;' class='tdr'>9,882</td>
+                        <td style='background-color:#e6ffe6;' class='tdr'>1,037</td>
+                        <td style='background-color:#fff4f4;' nowrap class='tdr'>1,946</td>
+                        <td style='background-color:#dfffdf;' class='tdr'>645</td>
+                        <td style='background-color:#ffd4d4;' nowrap class='tdr'>331</td>
+                        <td style='background-color:#fff4f4;' nowrap class='tdr'>.776</td>
+                        <td style='background-color:#ffcece;' nowrap class='tdr'>2,608</td>
+                        <td style='background-color:#efffef;' class='tdr'>857</td>
+                        <td style='background-color:#ffefef;' nowrap class='tdr'>1,151</td>
+                        <td style='background-color:#deffde;' class='tdr'>.370</td>
+                        <td style='background-color:#fff9f9;' nowrap class='tdr'>.534</td>
+                        <td class='tdc nowrap'><a href="#" class='tooltip-control' data-placement="top"
+                                                  data-toggle="tooltip"
+                                                  title=" Siakam 100%, Paul 100%, Adams 100%, Prince 100%, LaVine 100%, Griffin 100%, Holiday 100%, Warren 100%, Noel 100%, Barnes 100%, Batum 100%, Bogdanovic 100%, Aminu 100%, Galloway 100%, Bradley 5%"><i
+                                class="fal fa-users"></i></a></td>
+                    </tr>
+                    <tr class='summaryTD'>
+                        <td nowrap class='tdl'>Papa Shaq's Pizza Warriors</td>
+                        <td style='background-color:#ffffff;' class='tdr'>0</td>
+                        <td style='background-color:#fafffa;' class='tdr'>657</td>
+                        <td style='background-color:#f9fff9;'>0.515</td>
+                        <td nowrap><span style='background-color:#d6ffd6;padding: 1px 3px 1px 3px;'>7-4-0</span> <span
+                                width='50px' alt='' title='' style='background-color:#ffa1a1;padding: 1px 3px 1px 3px;'
+                                nowrap>p</span> <span width='50px' alt='' title=''
+                                                      style='background-color:#fcfffc;padding: 1px 3px 1px 3px;'>3</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#ffc1c1;padding: 1px 3px 1px 3px;' nowrap>a</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ff8282;padding: 1px 3px 1px 3px;' nowrap>s</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#e9ffe9;padding: 1px 3px 1px 3px;'>b</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#baffba;padding: 1px 3px 1px 3px;'>ft%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#dcffdc;padding: 1px 3px 1px 3px;'>dr</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ffd7d7;padding: 1px 3px 1px 3px;' nowrap>or</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#8aff8a;padding: 1px 3px 1px 3px;'>to</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#beffbe;padding: 1px 3px 1px 3px;'>3%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#88ff88;padding: 1px 3px 1px 3px;'>adjfg%</span></td>
+                        <td class='tdr'>657</td>
+                        <td style='background-color:#d7ffd7;' class='tdr'>9,916</td>
+                        <td style='background-color:#ffe6e6;' nowrap class='tdr'>847</td>
+                        <td style='background-color:#cdffcd;' class='tdr'>2,236</td>
+                        <td style='background-color:#adffad;' class='tdr'>704</td>
+                        <td style='background-color:#daffda;' class='tdr'>494</td>
+                        <td style='background-color:#ffe3e3;' nowrap class='tdr'>.770</td>
+                        <td style='background-color:#dbffdb;' class='tdr'>3,014</td>
+                        <td style='background-color:#a0ffa0;' class='tdr'>1,021</td>
+                        <td style='background-color:#ffc5c5;' nowrap class='tdr'>1,261</td>
+                        <td style='background-color:#ffc0c0;' nowrap class='tdr'>.348</td>
+                        <td style='background-color:#ffcece;' nowrap class='tdr'>.525</td>
+                        <td class='tdc nowrap'><a href="#" class='tooltip-control' data-placement="top"
+                                                  data-toggle="tooltip"
+                                                  title=" Towns 100%, Davis 100%, Holmes 100%, Looney 100%, Nance Jr. 100%, Smart 100%, Rubio 100%, Fournier 100%, Wiggins 100%, Hunter 100%, Garland 100%, Scott 100%, Barrett 100%, Rose 69%"><i
+                                class="fal fa-users"></i></a></td>
+                    </tr>
+                    <tr class='summaryTD'>
+                        <td nowrap class='tdl'>Gut Feelz</td>
+                        <td style='background-color:#ffffff;' class='tdr'>0</td>
+                        <td style='background-color:#fff3f3;' nowrap class='tdr'>649</td>
+                        <td style='background-color:#fffbfb;' nowrap>0.491</td>
+                        <td nowrap><span style='background-color:#f1fff1;padding: 1px 3px 1px 3px;'>6-5-0</span> <span
+                                width='50px' alt='' title='' style='background-color:#ffb1b1;padding: 1px 3px 1px 3px;'
+                                nowrap>p</span> <span width='50px' alt='' title=''
+                                                      style='background-color:#ffaaaa;padding: 1px 3px 1px 3px;' nowrap>3</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#ffb9b9;padding: 1px 3px 1px 3px;' nowrap>a</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#f9fff9;padding: 1px 3px 1px 3px;'>s</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#82ff82;padding: 1px 3px 1px 3px;'>b</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ffe4e4;padding: 1px 3px 1px 3px;' nowrap>ft%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#6bff6b;padding: 1px 3px 1px 3px;'>dr</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#6eff6e;padding: 1px 3px 1px 3px;'>or</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#a2ffa2;padding: 1px 3px 1px 3px;'>to</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ffd5d5;padding: 1px 3px 1px 3px;' nowrap>3%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#bfffbf;padding: 1px 3px 1px 3px;'>adjfg%</span></td>
+                        <td class='tdr'>649</td>
+                        <td style='background-color:#e7ffe7;' class='tdr'>9,627</td>
+                        <td style='background-color:#c0ffc0;' class='tdr'>1,183</td>
+                        <td style='background-color:#c5ffc5;' class='tdr'>2,276</td>
+                        <td style='background-color:#ffcece;' nowrap class='tdr'>552</td>
+                        <td style='background-color:#ffbcbc;' nowrap class='tdr'>283</td>
+                        <td style='background-color:#baffba;' class='tdr'>.805</td>
+                        <td style='background-color:#ffb1b1;' nowrap class='tdr'>2,470</td>
+                        <td style='background-color:#ffa6a6;' nowrap class='tdr'>640</td>
+                        <td style='background-color:#ffdcdc;' nowrap class='tdr'>1,199</td>
+                        <td style='background-color:#d3ffd3;' class='tdr'>.373</td>
+                        <td style='background-color:#f9fff9;' class='tdr'>.536</td>
+                        <td class='tdc nowrap'><a href="#" class='tooltip-control' data-placement="top"
+                                                  data-toggle="tooltip"
+                                                  title=" Lillard 100%, Hield 100%, Beal 100%, House 100%, Young 100%, Forbes 100%, Hart 100%, Powell 100%, Howard 100%, Zubac 100%, Parker 100%, Robinson III 100%, Rondo 100%, Waiters 89%"><i
+                                class="fal fa-users"></i></a></td>
+                    </tr>
+                    <tr class='summaryTD'>
+                        <td nowrap class='tdl'>Dick Kickers</td>
+                        <td style='background-color:#ffffff;' class='tdr'>0</td>
+                        <td style='background-color:#ffbebe;' nowrap class='tdr'>624</td>
+                        <td style='background-color:#fff2f2;' nowrap>0.467</td>
+                        <td nowrap><span style='background-color:#a0ffa0;padding: 1px 3px 1px 3px;'>9-2-0</span> <span
+                                width='50px' alt='' title='' style='background-color:#ffeded;padding: 1px 3px 1px 3px;'
+                                nowrap>p</span> <span width='50px' alt='' title=''
+                                                      style='background-color:#f6fff6;padding: 1px 3px 1px 3px;'>3</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#f8fff8;padding: 1px 3px 1px 3px;'>a</span> <span width='50px'
+                                                                                                            alt=''
+                                                                                                            title=''
+                                                                                                            style='background-color:#ffbfbf;padding: 1px 3px 1px 3px;'
+                                                                                                            nowrap>s</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#b2ffb2;padding: 1px 3px 1px 3px;'>b</span> <span width='50px'
+                                                                                                            alt=''
+                                                                                                            title=''
+                                                                                                            style='background-color:#ddffdd;padding: 1px 3px 1px 3px;'>ft%</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#deffde;padding: 1px 3px 1px 3px;'>dr</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#daffda;padding: 1px 3px 1px 3px;'>or</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#c1ffc1;padding: 1px 3px 1px 3px;'>to</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#dbffdb;padding: 1px 3px 1px 3px;'>3%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#aeffae;padding: 1px 3px 1px 3px;'>adjfg%</span></td>
+                        <td class='tdr'>624</td>
+                        <td style='background-color:#ffdbdb;' nowrap class='tdr'>8,588</td>
+                        <td style='background-color:#ffe0e0;' nowrap class='tdr'>824</td>
+                        <td style='background-color:#ffecec;' nowrap class='tdr'>1,910</td>
+                        <td style='background-color:#e9ffe9;' class='tdr'>633</td>
+                        <td style='background-color:#ffeded;' nowrap class='tdr'>382</td>
+                        <td style='background-color:#f7fff7;' class='tdr'>.783</td>
+                        <td style='background-color:#d9ffd9;' class='tdr'>3,024</td>
+                        <td style='background-color:#edffed;' class='tdr'>862</td>
+                        <td style='background-color:#fffbfb;' nowrap class='tdr'>1,120</td>
+                        <td style='background-color:#ffdede;' nowrap class='tdr'>.355</td>
+                        <td style='background-color:#fff3f3;' nowrap class='tdr'>.533</td>
+                        <td class='tdc nowrap'><a href="#" class='tooltip-control' data-placement="top"
+                                                  data-toggle="tooltip"
+                                                  title=" Harden 100%, Antetokounmpo 100%, Drummond 100%, Portis 100%, Murray 100%, Hood 100%, Hill 100%, Burks 100%, Williams 100%, Payton 100%, Connaughton 100%, Lee 100%, Kaminsky 100%, Morris 100%, Finney-Smith 11%"><i
+                                class="fal fa-users"></i></a></td>
+                    </tr>
+                    <tr class='summaryTD'>
+                        <td nowrap class='tdl'>Daza</td>
+                        <td style='background-color:#ffffff;' class='tdr'>0</td>
+                        <td style='background-color:#ffe6e6;' nowrap class='tdr'>643</td>
+                        <td style='background-color:#ffebeb;' nowrap>0.448</td>
+                        <td nowrap><span style='background-color:#d6ffd6;padding: 1px 3px 1px 3px;'>7-4-0</span> <span
+                                width='50px' alt='' title='' style='background-color:#ff9b9b;padding: 1px 3px 1px 3px;'
+                                nowrap>p</span> <span width='50px' alt='' title=''
+                                                      style='background-color:#fff3f3;padding: 1px 3px 1px 3px;' nowrap>3</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#ffb2b2;padding: 1px 3px 1px 3px;' nowrap>a</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ffefef;padding: 1px 3px 1px 3px;' nowrap>s</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ecffec;padding: 1px 3px 1px 3px;'>b</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#9bff9b;padding: 1px 3px 1px 3px;'>ft%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#d4ffd4;padding: 1px 3px 1px 3px;'>dr</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#d3ffd3;padding: 1px 3px 1px 3px;'>or</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#6cff6c;padding: 1px 3px 1px 3px;'>to</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ceffce;padding: 1px 3px 1px 3px;'>3%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#6fff6f;padding: 1px 3px 1px 3px;'>adjfg%</span></td>
+                        <td class='tdr'>643</td>
+                        <td style='background-color:#d1ffd1;' class='tdr'>10,004</td>
+                        <td style='background-color:#fff5f5;' nowrap class='tdr'>904</td>
+                        <td style='background-color:#beffbe;' class='tdr'>2,306</td>
+                        <td style='background-color:#ffe5e5;' nowrap class='tdr'>578</td>
+                        <td style='background-color:#d8ffd8;' class='tdr'>499</td>
+                        <td style='background-color:#ffc5c5;' nowrap class='tdr'>.760</td>
+                        <td style='background-color:#e4ffe4;' class='tdr'>2,974</td>
+                        <td style='background-color:#f3fff3;' class='tdr'>848</td>
+                        <td style='background-color:#ffa6a6;' nowrap class='tdr'>1,339</td>
+                        <td style='background-color:#ffd0d0;' nowrap class='tdr'>.352</td>
+                        <td style='background-color:#ffb4b4;' nowrap class='tdr'>.520</td>
+                        <td class='tdc nowrap'><a href="#" class='tooltip-control' data-placement="top"
+                                                  data-toggle="tooltip"
+                                                  title=" Gobert 100%, Porzingis 100%, Doncic 100%, Jackson Jr. 100%, Ingram 100%, Fox 100%, Green 100%, Morant 100%, Kanter 100%, Williams 100%, Bazemore 100%, Patterson 100%, White 100%, Jackson 100%"><i
+                                class="fal fa-users"></i></a></td>
+                    </tr>
+                    <tr class='summaryTD'>
+                        <td nowrap class='tdl'>Open your mind</td>
+                        <td style='background-color:#ffffff;' class='tdr'>0</td>
+                        <td style='background-color:#fffefe;' nowrap class='tdr'>654</td>
+                        <td style='background-color:#ffe4e4;' nowrap>0.430</td>
+                        <td nowrap><span style='background-color:#bbffbb;padding: 1px 3px 1px 3px;'>8-3-0</span> <span
+                                width='50px' alt='' title='' style='background-color:#ffd8d8;padding: 1px 3px 1px 3px;'
+                                nowrap>p</span> <span width='50px' alt='' title=''
+                                                      style='background-color:#ffc2c2;padding: 1px 3px 1px 3px;' nowrap>3</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#e9ffe9;padding: 1px 3px 1px 3px;'>a</span> <span width='50px'
+                                                                                                            alt=''
+                                                                                                            title=''
+                                                                                                            style='background-color:#e6ffe6;padding: 1px 3px 1px 3px;'>s</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#7eff7e;padding: 1px 3px 1px 3px;'>b</span> <span width='50px'
+                                                                                                            alt=''
+                                                                                                            title=''
+                                                                                                            style='background-color:#eaffea;padding: 1px 3px 1px 3px;'>ft%</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#83ff83;padding: 1px 3px 1px 3px;'>dr</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#8fff8f;padding: 1px 3px 1px 3px;'>or</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#e3ffe3;padding: 1px 3px 1px 3px;'>to</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ffe5e5;padding: 1px 3px 1px 3px;' nowrap>3%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#cdffcd;padding: 1px 3px 1px 3px;'>adjfg%</span></td>
+                        <td class='tdr'>654</td>
+                        <td style='background-color:#fff0f0;' nowrap class='tdr'>8,946</td>
+                        <td style='background-color:#d8ffd8;' class='tdr'>1,091</td>
+                        <td style='background-color:#ffdddd;' nowrap class='tdr'>1,839</td>
+                        <td style='background-color:#ffbbbb;' nowrap class='tdr'>530</td>
+                        <td style='background-color:#ffb9b9;' nowrap class='tdr'>276</td>
+                        <td style='background-color:#eaffea;' class='tdr'>.788</td>
+                        <td style='background-color:#ffcaca;' nowrap class='tdr'>2,588</td>
+                        <td style='background-color:#ffc6c6;' nowrap class='tdr'>707</td>
+                        <td style='background-color:#e1ffe1;' class='tdr'>1,034</td>
+                        <td style='background-color:#e3ffe3;' class='tdr'>.369</td>
+                        <td style='background-color:#ecffec;' class='tdr'>.539</td>
+                        <td class='tdc nowrap'><a href="#" class='tooltip-control' data-placement="top"
+                                                  data-toggle="tooltip"
+                                                  title=" Irving 100%, Sabonis 100%, Allen 100%, Saric 100%, Ball 100%, Redick 100%, Harris 100%, Osman 100%, Winslow 100%, Gordon 100%, Green 100%, Kuzma 100%, Ilyasova 100%, Hardaway Jr. 100%, Thompson 100%"><i
+                                class="fal fa-users"></i></a></td>
+                    </tr>
+                    <tr class='summaryTD'>
+                        <td nowrap class='tdl'>Hong Kong Freedom Fighters</td>
+                        <td style='background-color:#ffffff;' class='tdr'>0</td>
+                        <td style='background-color:#ffdcdc;' nowrap class='tdr'>638</td>
+                        <td style='background-color:#ffdfdf;' nowrap>0.418</td>
+                        <td nowrap><span style='background-color:#a0ffa0;padding: 1px 3px 1px 3px;'>9-2-0</span> <span
+                                width='50px' alt='' title='' style='background-color:#f8fff8;padding: 1px 3px 1px 3px;'>p</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#c8ffc8;padding: 1px 3px 1px 3px;'>3</span> <span width='50px'
+                                                                                                            alt=''
+                                                                                                            title=''
+                                                                                                            style='background-color:#ffbdbd;padding: 1px 3px 1px 3px;'
+                                                                                                            nowrap>a</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#ff9b9b;padding: 1px 3px 1px 3px;' nowrap>s</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#fefffe;padding: 1px 3px 1px 3px;'>b</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#6cff6c;padding: 1px 3px 1px 3px;'>ft%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#d2ffd2;padding: 1px 3px 1px 3px;'>dr</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#edffed;padding: 1px 3px 1px 3px;'>or</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#a5ffa5;padding: 1px 3px 1px 3px;'>to</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#aaffaa;padding: 1px 3px 1px 3px;'>3%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#9aff9a;padding: 1px 3px 1px 3px;'>adjfg%</span></td>
+                        <td class='tdr'>638</td>
+                        <td style='background-color:#ffc2c2;' nowrap class='tdr'>8,151</td>
+                        <td style='background-color:#ffb1b1;' nowrap class='tdr'>646</td>
+                        <td style='background-color:#c9ffc9;' class='tdr'>2,255</td>
+                        <td style='background-color:#c5ffc5;' class='tdr'>675</td>
+                        <td style='background-color:#c5ffc5;' class='tdr'>537</td>
+                        <td style='background-color:#ff9595;' nowrap class='tdr'>.743</td>
+                        <td style='background-color:#e5ffe5;' class='tdr'>2,966</td>
+                        <td style='background-color:#daffda;' class='tdr'>901</td>
+                        <td style='background-color:#ffdfdf;' nowrap class='tdr'>1,194</td>
+                        <td style='background-color:#ffacac;' nowrap class='tdr'>.344</td>
+                        <td style='background-color:#ffdfdf;' nowrap class='tdr'>.529</td>
+                        <td class='tdc nowrap'><a href="#" class='tooltip-control' data-placement="top"
+                                                  data-toggle="tooltip"
+                                                  title=" Embiid 100%, Ingles 100%, Conley 100%, Simmons 100%, Favors 100%, Collins 100%, Clarke 100%, Wright 100%, Green 100%, Hachimura 100%, Dragic 100%, Thybulle 100%, Davis 100%, Bamba 100%, Brooks 23%"><i
+                                class="fal fa-users"></i></a></td>
+                    </tr>
+                    <tr class='summaryTD'>
+                        <td nowrap class='tdl'>Sheesh - LeBrOn JaMeS</td>
+                        <td style='background-color:#ffffff;' class='tdr'>0</td>
+                        <td style='background-color:#fff1f1;' nowrap class='tdr'>648</td>
+                        <td style='background-color:#ffdddd;' nowrap>0.412</td>
+                        <td nowrap><span style='background-color:#bbffbb;padding: 1px 3px 1px 3px;'>8-3-0</span> <span
+                                width='50px' alt='' title='' style='background-color:#ffc4c4;padding: 1px 3px 1px 3px;'
+                                nowrap>p</span> <span width='50px' alt='' title=''
+                                                      style='background-color:#ffc7c7;padding: 1px 3px 1px 3px;' nowrap>3</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#ffbebe;padding: 1px 3px 1px 3px;' nowrap>a</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#d8ffd8;padding: 1px 3px 1px 3px;'>s</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#adffad;padding: 1px 3px 1px 3px;'>b</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#e3ffe3;padding: 1px 3px 1px 3px;'>ft%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#86ff86;padding: 1px 3px 1px 3px;'>dr</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#83ff83;padding: 1px 3px 1px 3px;'>or</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#9cff9c;padding: 1px 3px 1px 3px;'>to</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#f6fff6;padding: 1px 3px 1px 3px;'>3%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#d6ffd6;padding: 1px 3px 1px 3px;'>adjfg%</span></td>
+                        <td class='tdr'>649</td>
+                        <td style='background-color:#fafffa;' class='tdr'>9,307</td>
+                        <td style='background-color:#ddffdd;' class='tdr'>1,073</td>
+                        <td style='background-color:#caffca;' class='tdr'>2,250</td>
+                        <td style='background-color:#ffaeae;' nowrap class='tdr'>514</td>
+                        <td style='background-color:#ffe8e8;' nowrap class='tdr'>372</td>
+                        <td style='background-color:#f1fff1;' class='tdr'>.785</td>
+                        <td style='background-color:#ffcdcd;' nowrap class='tdr'>2,602</td>
+                        <td style='background-color:#ffbbbb;' nowrap class='tdr'>683</td>
+                        <td style='background-color:#ffd6d6;' nowrap class='tdr'>1,215</td>
+                        <td style='background-color:#fff8f8;' nowrap class='tdr'>.361</td>
+                        <td style='background-color:#e2ffe2;' class='tdr'>.541</td>
+                        <td class='tdc nowrap'><a href="#" class='tooltip-control' data-placement="top"
+                                                  data-toggle="tooltip"
+                                                  title=" Lowry 100%, James 100%, Horford 100%, Markkanen 100%, Green 100%, Harrell 100%, Randle 100%, Herro 100%, McGee 100%, Jackson 100%, Mills 100%, Thomas 100%, Matthews 100%, Muscala 100%"><i
+                                class="fal fa-users"></i></a></td>
+                    </tr>
+                    <tr class='summaryTD'>
+                        <td nowrap class='tdl'>Game...Blouses</td>
+                        <td style='background-color:#ffffff;' class='tdr'>0</td>
+                        <td style='background-color:#ffa1a1;' nowrap class='tdr'>610</td>
+                        <td style='background-color:#ffc5c5;' nowrap>0.352</td>
+                        <td nowrap><span style='background-color:#a0ffa0;padding: 1px 3px 1px 3px;'>9-2-0</span> <span
+                                width='50px' alt='' title='' style='background-color:#fffcfc;padding: 1px 3px 1px 3px;'
+                                nowrap>p</span> <span width='50px' alt='' title=''
+                                                      style='background-color:#d6ffd6;padding: 1px 3px 1px 3px;'>3</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#d9ffd9;padding: 1px 3px 1px 3px;'>a</span> <span width='50px'
+                                                                                                            alt=''
+                                                                                                            title=''
+                                                                                                            style='background-color:#ffd7d7;padding: 1px 3px 1px 3px;'
+                                                                                                            nowrap>s</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#c6ffc6;padding: 1px 3px 1px 3px;'>b</span> <span width='50px'
+                                                                                                            alt=''
+                                                                                                            title=''
+                                                                                                            style='background-color:#e1ffe1;padding: 1px 3px 1px 3px;'>ft%</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#6dff6d;padding: 1px 3px 1px 3px;'>dr</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#b8ffb8;padding: 1px 3px 1px 3px;'>or</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#fcfffc;padding: 1px 3px 1px 3px;'>to</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#ecffec;padding: 1px 3px 1px 3px;'>3%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#9fff9f;padding: 1px 3px 1px 3px;'>adjfg%</span></td>
+                        <td class='tdr'>610</td>
+                        <td style='background-color:#ffcccc;' nowrap class='tdr'>8,319</td>
+                        <td style='background-color:#ffc0c0;' nowrap class='tdr'>700</td>
+                        <td style='background-color:#ffcdcd;' nowrap class='tdr'>1,763</td>
+                        <td style='background-color:#fffcfc;' nowrap class='tdr'>605</td>
+                        <td style='background-color:#fdfffd;' class='tdr'>423</td>
+                        <td style='background-color:#f4fff4;' class='tdr'>.784</td>
+                        <td style='background-color:#ffb3b3;' nowrap class='tdr'>2,480</td>
+                        <td style='background-color:#fff0f0;' nowrap class='tdr'>792</td>
+                        <td style='background-color:#c8ffc8;' class='tdr'>969</td>
+                        <td style='background-color:#ffefef;' nowrap class='tdr'>.359</td>
+                        <td style='background-color:#ffe5e5;' nowrap class='tdr'>.530</td>
+                        <td class='tdc nowrap'><a href="#" class='tooltip-control' data-placement="top"
+                                                  data-toggle="tooltip"
+                                                  title=" Curry 100%, Leonard 100%, Butler 100%, Gilgeous-Alexander 100%, Adebayo 100%, Washington 100%, Millsap 100%, Bjelica 100%, Williams 100%, Graham 100%, Okafor 100%, Wagner 100%, Brunson 100%, Porter Jr. 100%, Miles 39%"><i
+                                class="fal fa-users"></i></a></td>
+                    </tr>
+                    <tr class='summaryTD'>
+                        <td nowrap class='tdl'>Tip to Tip Efficiency</td>
+                        <td style='background-color:#ffffff;' class='tdr'>0</td>
+                        <td style='background-color:#fff1f1;' nowrap class='tdr'>648</td>
+                        <td style='background-color:#ff8f8f;' nowrap>0.212</td>
+                        <td nowrap><span style='background-color:#69ff69;padding: 1px 3px 1px 3px;'>11-0-0</span> <span
+                                width='50px' alt='' title='' style='background-color:#e9ffe9;padding: 1px 3px 1px 3px;'>p</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#c0ffc0;padding: 1px 3px 1px 3px;'>3</span> <span width='50px'
+                                                                                                            alt=''
+                                                                                                            title=''
+                                                                                                            style='background-color:#fcfffc;padding: 1px 3px 1px 3px;'>a</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#f5fff5;padding: 1px 3px 1px 3px;'>s</span> <span width='50px'
+                                                                                                            alt=''
+                                                                                                            title=''
+                                                                                                            style='background-color:#8fff8f;padding: 1px 3px 1px 3px;'>b</span>
+                            <span width='50px' alt='' title=''
+                                  style='background-color:#7dff7d;padding: 1px 3px 1px 3px;'>ft%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#a8ffa8;padding: 1px 3px 1px 3px;'>dr</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#89ff89;padding: 1px 3px 1px 3px;'>or</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#e8ffe8;padding: 1px 3px 1px 3px;'>to</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#d1ffd1;padding: 1px 3px 1px 3px;'>3%</span> <span
+                                    width='50px' alt='' title=''
+                                    style='background-color:#8aff8a;padding: 1px 3px 1px 3px;'>adjfg%</span></td>
+                        <td class='tdr'>648</td>
+                        <td style='background-color:#ffb3b3;' nowrap class='tdr'>7,898</td>
+                        <td style='background-color:#ffaaaa;' nowrap class='tdr'>616</td>
+                        <td style='background-color:#fff0f0;' nowrap class='tdr'>1,928</td>
+                        <td style='background-color:#ffcaca;' nowrap class='tdr'>547</td>
+                        <td style='background-color:#ffcaca;' nowrap class='tdr'>311</td>
+                        <td style='background-color:#ffa7a7;' nowrap class='tdr'>.749</td>
+                        <td style='background-color:#ffeeee;' nowrap class='tdr'>2,763</td>
+                        <td style='background-color:#ffc0c0;' nowrap class='tdr'>694</td>
+                        <td style='background-color:#dcffdc;' class='tdr'>1,022</td>
+                        <td style='background-color:#ffd3d3;' nowrap class='tdr'>.353</td>
+                        <td style='background-color:#ffcfcf;' nowrap class='tdr'>.526</td>
+                        <td class='tdc nowrap'><a href="#" class='tooltip-control' data-placement="top"
+                                                  data-toggle="tooltip"
+                                                  title=" Williamson 100%, Hayward 100%, Oladipo 100%, Ibaka 100%, Westbrook 100%, Jordan 100%, DeRozan 100%, Sexton 100%, Cauley-Stein 100%, Ariza 100%, Williams 100%, Melli 100%, Robinson 100%, Trier 100%, Dunn 81%"><i
+                                class="fal fa-users"></i></a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+    

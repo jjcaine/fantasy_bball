@@ -132,3 +132,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 PROJECTION_DATAFRAME_ROOT = os.path.join(MEDIA_ROOT, 'projections')
 DRAFT_DATAFRME_ROOT = os.path.join(MEDIA_ROOT, 'drafts')
+
+ALLOWED_HOSTS = ['*']

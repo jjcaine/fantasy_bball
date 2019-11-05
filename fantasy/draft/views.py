@@ -55,7 +55,7 @@ def draft_entry(request):
         df_draft = get_pickled_df(pickle_path)
     except DraftPickleException:
         df_draft = get_data(projections_path)
-        df_draft = compute_value(df_draft, replacement_approach='mean')
+        df_draft = compute_value(df_draft, replacement_approach='median')
         df_draft = initialize_draft_dataframe(df_draft)
 
     players = list(df_draft.index)
@@ -104,7 +104,7 @@ def draft_board(request):
         df_draft = get_pickled_df(pickle_path)
     except DraftPickleException:
         df_draft = get_data(projections_path)
-        df_draft = compute_value(df_draft, replacement_approach='mean')
+        df_draft = compute_value(df_draft, replacement_approach='median')
         df_draft = initialize_draft_dataframe(df_draft)
 
     df_draft = calculate_updated_values(df_draft)
@@ -124,7 +124,7 @@ def draft_board(request):
                '</span>' if x == 'Avail' else '<span class="unavailable">' + x + '</span>'
 
     return render(request, 'draft_board.html', {
-        'draft_data_table': df_draft.round(decimals=2).to_html(classes='table table-hover',
+        'draft_data_table': df_draft.round(decimals=2).to_html(classes='table table-hover searchable',
                                                                escape=False,
                                                                formatters={
                                                                    'owned': availability},
@@ -143,7 +143,7 @@ def draft_board(request):
 @login_required()
 def top_available_players_board(request):
     df_draft = get_pickled_df(pickle_path)
-    df_top_available_players = top_available_players(df_draft, 25)
+    df_top_available_players = top_available_players(df_draft, 100)
 
     return render(request, 'top_available_players.html', {
         'draft_data_table': df_top_available_players.round(decimals=2).to_html(classes='table table-hover',
@@ -160,7 +160,7 @@ def invalidate_draft_frame(request):
         messages.warning(request, "No dataframe file to invalidate.")
         pass
     df_draft = get_data(projections_path)
-    df_draft = compute_value(df_draft, replacement_approach='mean')
+    df_draft = compute_value(df_draft, replacement_approach='median')
     df_draft = initialize_draft_dataframe(df_draft)
     df_draft = calculate_updated_values(df_draft)
     df_draft.to_pickle(pickle_path)

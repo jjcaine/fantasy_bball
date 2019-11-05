@@ -15,48 +15,53 @@ roster_size = 14
 starters = 10
 total_players = num_teams * roster_size
 
-league_teams = ['Team Lyons (Shawn Lyons)',
-                'Florida Man (Charlie Deye)',
-                'Team Jacobs (Kyle Jacobs)',
-                'Luka Mateam! (Mark Skrzydlak)',
-                'Great White Buffalo (Ren Nunes)',
-                'NBA- Nothing But Aquisitions (Chris Baird)',
-                'Team Sanderson (Aaron Sanderson)',
-                'Team Dzialo (Bryan Dzialo)',
-                'Team Raterman (Tom Raterman)',
-                'If There Ever Was a BM (Nick Trivett)',
-                'Control The Narrative (Anthony McCready)',
-                'Midrange Jumper Is Underrated (Eric Duncan)',
-                'Pipe Dreams (John Caine)',
-                'Team DAZA (Luis Daza)',
-                'Game... Blouses (Evan Beesley)',
-                'Team A Lyons (Adam Lyons)'
-                ]
-
-# For mock drafts
 league_teams = [
-    'Team Caine',
-    'Team 2',
-    'Team 3',
-    'Team 4',
-    'Team 5',
-    'Team 6',
-    'Team 7',
-    'Team 8',
-    'Team 9',
-    'Team 10',
-    'Team 11',
-    'Team 12',
-    'Team 13',
-    'Team 14',
-    'Team 15',
-    'Team 16'
+    'D Rose Still My MVP (Adam Lyons)',
+    "Daryl Morey's Diplomatic Immunity (Shawn Lyons)",
+    'Daza (Luis Daza)',
+    'Dick Kickers (Bryan Dzialo)',
+    'Gut Feelz (Charlie Deye)',
+    'Game... Blouses (Evan Beesley)',
+    'Hong Kong Freedom Fighters (Mark Skrzydlak)',
+    'I thought we were ahead (Kyle Jacobs)',
+    "Kawhi Leonard's Laugh (Tom Raterman)",
+    'NOT a g/NBA Deep State Operative (Eric Duncan)',
+    'One of Each of Your Sauces (Anthony McCready)',
+    "Papa Shaq's Pizza Warriors (Ren)",
+    'Pipe Dreams (John Caine)',
+    'Poop Watch Is Dead, Long Live Poop Watch (Nick Trivett)',
+    'TBD (Alan Sinclair)',
+    'Tip to Tip Efficiency (Dave Blue)'
 ]
+
+# # For mock drafts
+# league_teams = [
+#     'Team Caine',
+#     'Team 2',
+#     'Team 3',
+#     'Team 4',
+#     'Team 5',
+#     'Team 6',
+#     'Team 7',
+#     'Team 8',
+#     'Team 9',
+#     'Team 10',
+#     'Team 11',
+#     'Team 12',
+#     'Team 13',
+#     'Team 14',
+#     'Team 15',
+#     'Team 16'
+# ]
 
 scoring_categories = ['adjfg%', 'ft%', '3/g', '3%',
                       'or/g', 'dr/g', 'a/g', 's/g', 'b/g', 'to/g', 'p/g']
+
+# scoring_categories = ['adjfg%', 'ft%', '3/g', '3%',
+#                       'or/g', 'dr/g', 'a/g', 's/g', 'b/g', 'p/g']
+
 display_columns = ['calculated_value', 'g',
-                   'm/g', 'Inj', 'Team'] + scoring_categories
+                   'm/g', 'Inj', 'Status', 'Team'] + scoring_categories
 
 
 def get_data(projections_path):
@@ -123,7 +128,7 @@ def compute_value(df, replacement_approach='median'):
 
     # return the df_value with the columns we care about for later on
     final_columns = ['calculated_value', 'calculated_$', 'g',
-                     'm/g', 'Team', 'Inj'] + scoring_categories + ['rank']
+                     'm/g', 'Team', 'Inj', 'Status'] + scoring_categories + ['rank']
     return df_value.loc[:, final_columns]
 
 
@@ -214,8 +219,11 @@ def dollar_player_average_remaining(df, teams):
     """Returns a dictionary with how much each team can spend on avg for the number of players they have remaining"""
     average_remaining = {}
     for t in teams:
-        average_remaining[t] = round((team_budget - int(df.loc[(df['owned'] == t), ['sold_$']].sum())) / (
+        try:
+            average_remaining[t] = round((team_budget - int(df.loc[(df['owned'] == t), ['sold_$']].sum())) / (
             roster_size - int(df.loc[(df['owned'] == t), 'g'].count())), 2)
+        except ZeroDivisionError:
+            average_remaining[t] = 0
     return average_remaining
 
 

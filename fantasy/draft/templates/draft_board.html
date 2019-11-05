@@ -6,6 +6,9 @@
     
 {% block content %}
 <h3>Draft Board</h3>
+    <div class="ui-widget">
+        <input class="form-control col-sm-2" type="text" id="player-dropdown" name="drafted_player" placeholder="Player" autocomplete="off"></div>
+    </div>
 <p>{{ draft_data_table|safe }}</p>
 {% endblock content %}
 
@@ -20,9 +23,35 @@ $(document).ready( function () {
       $this = $(this);
       var row_index = $this.index();
       if (row_index != 0 && row_index % 10 == 0) {
-        $this.after('<tr style="text-align: center;"><th></th><th>calculated_value</th><th>calculated_$</th><th>new_$</th><th>bargain_$</th><th>sold_$</th><th>owned</th><th>g</th><th>m/g</th><th>Team</th><th>Inj</th><th>adjfg%</th><th>ft%</th><th>3/g</th><th>3%</th><th>or/g</th><th>dr/g</th><th>a/g</th><th>s/g</th><th>b/g</th><th>to/g</th><th>p/g</th><th>rank</th></tr>')
+        $this.after('<tr style="text-align: center;"><th></th><th>calculated_value</th><th>calculated_$</th><th>new_$</th><th>bargain_$</th><th>sold_$</th><th>owned</th><th>g</th><th>m/g</th><th>Team</th><th>Inj</th><th>Status</th><th>adjfg%</th><th>ft%</th><th>3/g</th><th>3%</th><th>or/g</th><th>dr/g</th><th>a/g</th><th>s/g</th><th>b/g</th><th>to/g</th><th>p/g</th><th>rank</th></tr>')
       }
     });
+
+    $(".unavailable").parent().parent().css({"background-color": "#F9B1A9"});
+
+
+    (function ($) {
+
+        $('#player-dropdown').keyup(function () {
+
+            var rex = new RegExp($(this).val(), 'i');
+            $('.searchable tr').hide();
+            $('.searchable tr').filter(function () {
+                return rex.test($(this).text());
+            }).show();
+
+        })
+        $('#player-dropdown').click(function () {
+
+            var rex = new RegExp($(this).val(), 'i');
+            $('.searchable tr').hide();
+            $('.searchable tr').filter(function () {
+                return rex.test($(this).text());
+            }).show();
+
+        })
+
+    }(jQuery));
 });
 </script>
 {% endblock custom_scripting %}
