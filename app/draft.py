@@ -8,11 +8,11 @@ from app.exceptions import DraftPickleException, NoTransactionFileExists
 
 log = logging.getLogger(__name__)
 
-num_teams = 16
-team_budget = 269
+num_teams = 10
+team_budget = 200
 league_dollars_total = num_teams * team_budget
-roster_size = 14
-starters = 10
+roster_size = 8
+starters = 5
 total_players = num_teams * roster_size
 
 league_teams = ['Team Lyons (Shawn Lyons)',
@@ -44,23 +44,17 @@ league_teams = [
 'Team 7',
 'Team 8',
 'Team 9',
-'Team 10',
-'Team 11',
-'Team 12',
-'Team 13',
-'Team 14',
-'Team 15',
-'Team 16'
+'Team 10'
 ]
 
-scoring_categories = ['adjfg%', 'ft%', '3/g', '3%', 'or/g', 'dr/g', 'a/g', 's/g', 'b/g', 'to/g', 'p/g']
-display_columns = ['calculated_value', 'g', 'm/g', 'Inj', 'Team'] + scoring_categories
+scoring_categories = ['PTS', 'REB', 'AST', 'STL', 'BLK', '3PM', 'TO']
+display_columns = ['calculated_value', 'GP', 'MIN', 'Team'] + scoring_categories
 
 
 def get_data(projections_path):
     """Opens a projection Excel sheet and returns a pandas dataframe"""
 
-    df = pd.read_excel(projections_path, index_col='Rank', dtype={'Inj': str})
+    df = pd.read_excel(projections_path, index_col='Rank')
     return df
 
 
@@ -74,7 +68,7 @@ def compute_value(df, replacement_approach='median'):
 
     # try to convert turnovers to negative so we can subtract their value
     try:
-        df_stats['to/g'] = df_stats['to/g'] * -1
+        df_stats['to/g'] = df_stats['TO'] * -1
     except KeyError as e:
         print("to/g not in scoring categories")
 
@@ -84,9 +78,9 @@ def compute_value(df, replacement_approach='median'):
 
     # calculate what a replacement player looks like, depending on the approach (median vs mean)
     if replacement_approach == 'median':
-        replacement = df.loc[total_players + 10:total_players + 60, scoring_categories].median()
+        replacement = df.loc[70:79, scoring_categories].median()
     elif replacement_approach == 'mean':
-        replacement = df.loc[total_players + 10:total_players + 60, scoring_categories].mean()
+        replacement = df.loc[70:79, scoring_categories].mean()
     else:
         Exception("Replacement approach must be 'median' or 'mean'")
 
@@ -116,7 +110,7 @@ def compute_value(df, replacement_approach='median'):
     df_value['calculated_$'] = dollar_per_value_point * df_value['calculated_value']
 
     # return the df_value with the columns we care about for later on
-    final_columns = ['calculated_value', 'calculated_$', 'g', 'm/g', 'Team', 'Inj'] + scoring_categories + ['rank']
+    final_columns = ['calculated_value', 'calculated_$', 'GP', 'MIN', 'Team'] + scoring_categories + ['rank']
     return df_value.loc[:, final_columns]
 
 
@@ -190,14 +184,14 @@ def count_drafted_players(df, teams):
     """Returns a dictionary with a count of players drafted for each team"""
     player_count = {}
     for t in teams:
-        player_count[t] = int(df.loc[(df['owned'] == t), 'g'].count())
+        player_count[t] = int(df.loc[(df['owned'] == t), 'GP'].count())
     return player_count
 
 def dollar_player_average_remaining(df, teams):
     """Returns a dictionary with how much each team can spend on avg for the number of players they have remaining"""
     average_remaining = {}
     for t in teams:
-        average_remaining[t] = round((team_budget - int(df.loc[(df['owned'] == t), ['sold_$']].sum())) /(roster_size - int(df.loc[(df['owned'] == t), 'g'].count())), 2)
+        average_remaining[t] = round((team_budget - int(df.loc[(df['owned'] == t), ['sold_$']].sum())) /(roster_size - int(df.loc[(df['owned'] == t), 'GP'].count())), 2)
     return average_remaining
 
 

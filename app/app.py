@@ -19,7 +19,7 @@ app.debug = True
 app.config['SECRET_KEY'] = 'super secret'
 
 pickle_path = './df_value.pkl'
-projections_path = '/Users/jjcaine/Downloads/BBM_projections_combined.xls'
+projections_path = '/Users/jjcaine/Downloads/rotowire-projections.xlsx'
 transactions_file = 'transactions.json'
 
 
