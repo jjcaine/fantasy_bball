@@ -47,7 +47,7 @@ league_teams = [
 'Team 10'
 ]
 
-scoring_categories = ['PTS', 'REB', 'AST', 'STL', 'BLK', '3PM', 'TO']
+scoring_categories = ['PTS', 'REB', 'AST', 'STL', 'BLK', '3PM', 'TO', 'FT%']
 display_columns = ['calculated_value', 'GP', 'MIN', 'Team'] + scoring_categories
 
 
