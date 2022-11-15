@@ -8,7 +8,7 @@ from flask.logging import default_handler
 
 from app.draft import get_data, compute_value, get_pickled_df, initialize_draft, league_teams, transaction, \
     calculate_updated_values, replay_tranactions, calculate_current_team_values, calculate_team_spending, \
-    count_drafted_players, dollar_player_average_remaining
+    count_drafted_players, dollar_player_average_remaining, export_df_excel
 from app.exceptions import DraftPickleException, DraftNotInitializedException, NoTransactionFileExists
 
 root = logging.getLogger()
@@ -21,6 +21,7 @@ app.config['SECRET_KEY'] = 'super secret'
 pickle_path = './df_value.pkl'
 projections_path = '/Users/jjcaine/Downloads/rotowire-projections.xlsx'
 transactions_file = 'transactions.json'
+export_path = './df_export.xls'
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -97,6 +98,13 @@ def clear_log():
     except FileNotFoundError:
         flash("No log file exists to clear")
 
+    return redirect(url_for('main'))
+
+@app.route('/save_df_to_file')
+def export_df():
+    df = get_pickled_df(pickle_path)
+    export_df_excel(df, export_path)
+    flash("Exported dataframe to excel")
     return redirect(url_for('main'))
 
 

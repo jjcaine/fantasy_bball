@@ -33,19 +33,32 @@ league_teams = ['Team Lyons (Shawn Lyons)',
                 'Team A Lyons (Adam Lyons)'
                 ]
 
-# For mock drafts
 league_teams = [
-'Team Caine',
-'Team 2',
-'Team 3',
-'Team 4',
-'Team 5',
-'Team 6',
-'Team 7',
-'Team 8',
-'Team 9',
-'Team 10'
+    'Big Windshield Small Mirror (John Caine)',
+    "Fanta's Fupa (Patrick Cody)",
+    "Javi (Javier Morejon)",
+    "Jeff (Jeff McMurray)",
+    "Practive Points Matter (Mike Spillane)",
+    "Ray (Ray O'Brien)",
+    "Sean Miller Wet T Shirt Contest (Brenden Regan)",
+    "Softmantle (Nick Trivett)",
+    "THEY'RE FREE!! (Eric Duncan)",
+    "Tim (Tim Harrington)"
 ]
+
+# # For mock drafts
+# league_teams = [
+# 'Team Caine',
+# 'Team 2',
+# 'Team 3',
+# 'Team 4',
+# 'Team 5',
+# 'Team 6',
+# 'Team 7',
+# 'Team 8',
+# 'Team 9',
+# 'Team 10'
+# ]
 
 scoring_categories = ['PTS', 'REB', 'AST', 'STL', 'BLK', '3PM', 'TO', 'FT%']
 display_columns = ['calculated_value', 'GP', 'MIN', 'Team'] + scoring_categories
@@ -191,9 +204,12 @@ def dollar_player_average_remaining(df, teams):
     """Returns a dictionary with how much each team can spend on avg for the number of players they have remaining"""
     average_remaining = {}
     for t in teams:
-        average_remaining[t] = round((team_budget - int(df.loc[(df['owned'] == t), ['sold_$']].sum())) /(roster_size - int(df.loc[(df['owned'] == t), 'GP'].count())), 2)
+        # protecting against a div by 0 error
+        if roster_size - int(df.loc[(df['owned'] == t), 'GP'].count()) == 0:
+            average_remaining[t] = 0
+        else:
+            average_remaining[t] = round((team_budget - int(df.loc[(df['owned'] == t), ['sold_$']].sum())) /(roster_size - int(df.loc[(df['owned'] == t), 'GP'].count())), 2)
     return average_remaining
-
 
 
 def replay_tranactions(df, transactions_file_path='transactions.json'):
@@ -214,3 +230,6 @@ def get_pickled_df(path):
         return pd.read_pickle(path)
     else:
         raise DraftPickleException("Pickle file does not exist")
+
+def export_df_excel(df, path):
+    df.to_excel(path)
