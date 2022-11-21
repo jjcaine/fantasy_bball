@@ -19,7 +19,7 @@ app.debug = True
 app.config['SECRET_KEY'] = 'super secret'
 
 pickle_path = './df_value.pkl'
-projections_path = '/Users/jjcaine/Downloads/rotowire-projections.xlsx'
+projections_path = '/Users/jjcaine/icloud_dir/rotowire-projections.xlsx'
 transactions_file = 'transactions.json'
 export_path = './df_export.xls'
 
